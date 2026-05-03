@@ -3,660 +3,1591 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carnatic Music Encyclopedia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Nada Neerajanam — Sapta Swara Sacred Knowledge Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Devanagari+New&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --gold:#c9a84c;--deep:#1a0f2e;--rust:#8b3a2a;--cream:#fdf8f0;
-    --text:#2c1810;--muted:#7a6a5a;--border:#e8ddd0;
-  }
-  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
-  .app{display:flex;flex-direction:column;min-height:100vh}
-  .header{background:var(--deep);padding:20px 32px 0;position:relative;overflow:hidden}
-  .header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,0.15) 0%,transparent 70%)}
-  .header-top{display:flex;align-items:center;gap:16px;margin-bottom:16px;position:relative}
-  .logo{width:44px;height:44px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-  .header-title h1{font-family:'Playfair Display',serif;color:#fff;font-size:22px;font-weight:700}
-  .header-title p{color:rgba(255,255,255,0.55);font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;margin-top:2px}
-  .nav-bar{display:flex;gap:4px;position:relative;overflow-x:auto;scrollbar-width:none}
-  .nav-bar::-webkit-scrollbar{display:none}
-  .nav-item{position:relative}
-  .nav-btn{background:transparent;border:none;color:rgba(255,255,255,0.65);padding:12px 18px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;border-radius:8px 8px 0 0;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all 0.2s;font-weight:400}
-  .nav-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
-  .nav-btn.active{background:var(--cream);color:var(--deep);font-weight:500}
-  .dropdown{position:absolute;top:100%;left:0;background:#fff;border:0.5px solid var(--border);border-radius:0 8px 8px 8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);min-width:220px;z-index:100;display:none;overflow:hidden}
-  .dropdown.show{display:block}
-  .dd-item{padding:10px 16px;font-size:13px;cursor:pointer;color:var(--text);border-bottom:0.5px solid rgba(0,0,0,0.05);display:flex;align-items:center;gap:10px;transition:background 0.15s}
-  .dd-item:last-child{border-bottom:none}
-  .dd-item:hover{background:rgba(201,168,76,0.08)}
-  .dd-icon{width:22px;height:22px;border-radius:4px;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-  .content{flex:1;padding:28px 32px;max-width:100%}
-  .tab-panel{display:none}
-  .tab-panel.active{display:block}
-  .section-header{margin-bottom:24px}
-  .section-header h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--deep);margin-bottom:6px}
-  .section-header p{color:var(--muted);font-family:'Crimson Pro',serif;font-style:italic;font-size:15px}
-  .divider{height:2px;background:linear-gradient(90deg,var(--gold),transparent);width:60px;margin:8px 0}
-  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px}
-  .card{background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
-  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);opacity:0}
-  .card:hover{border-color:var(--gold);transform:translateY(-2px)}
-  .card:hover::before{opacity:1}
-  .card-num{font-size:11px;color:var(--gold);font-weight:500;margin-bottom:6px;letter-spacing:1px}
-  .card-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--deep);margin-bottom:4px}
-  .card-sub{font-size:12px;color:var(--muted)}
-  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
-  th{background:var(--deep);color:#fff;padding:10px 14px;text-align:left;font-weight:500;font-size:12px;letter-spacing:0.5px}
-  td{padding:9px 14px;border-bottom:0.5px solid var(--border);color:var(--text)}
-  tr:hover td{background:rgba(201,168,76,0.05)}
-  tr:last-child td{border-bottom:none}
-  .swara-row{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
-  .swara{padding:6px 12px;border-radius:6px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
-  .s-sa{background:#e8f5e9;color:#2e7d32}.s-ri{background:#e3f2fd;color:#1565c0}
-  .s-ga{background:#fce4ec;color:#ad1457}.s-ma{background:#fff3e0;color:#e65100}
-  .s-pa{background:#e8f5e9;color:#2e7d32}.s-dha{background:#e3f2fd;color:#1565c0}
-  .s-ni{background:#fce4ec;color:#ad1457}
-  .info-block{background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-  .info-block h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--deep);margin-bottom:10px;font-weight:500}
-  .info-block p{font-size:14px;line-height:1.75;color:var(--text)}
-  .info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
-  .info-row:last-child{border-bottom:none}
-  .info-label{color:var(--muted);font-size:12px}
-  .info-value{font-weight:500;color:var(--deep)}
-  .sub-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-  .sub-tab{padding:7px 16px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s}
-  .sub-tab.active{background:var(--deep);color:#fff;border-color:var(--deep)}
-  .tala-vis{display:flex;gap:4px;margin:12px 0;flex-wrap:wrap}
-  .beat{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
-  .beat-clap{background:#1a0f2e;color:#fff}.beat-wave{background:#e8ddd0;color:#5a4a3a}.beat-finger{background:#c9a84c;color:#fff}
-  .notation{background:#1a0f2e;border-radius:12px;padding:20px;margin:12px 0;color:#fff;font-family:monospace;font-size:13px;line-height:2;overflow-x:auto}
-  .note-sa{color:#69f0ae}.note-ri{color:#64b5f6}.note-ga{color:#f48fb1}
-  .note-ma{color:#ffcc02}.note-pa{color:#a5d6a7}.note-dha{color:#81d4fa}.note-ni{color:#f8bbd0}.note-bar{color:rgba(255,255,255,0.3);margin:0 4px}
-  .hero{background:linear-gradient(135deg,var(--deep) 0%,#2d1854 100%);border-radius:16px;padding:32px;margin-bottom:24px;color:#fff;position:relative;overflow:hidden}
-  .hero::after{content:'';position:absolute;right:24px;top:16px;font-size:80px;opacity:0.08}
-  .hero h2{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:8px}
-  .hero p{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.6}
-  .hero-stats{display:flex;gap:32px;margin-top:20px}
-  .h-stat{text-align:center}
-  .h-num{font-size:28px;font-weight:500;color:var(--gold)}
-  .h-label{font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px}
-  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;margin:2px}
-  .badge-gold{background:rgba(201,168,76,0.15);color:#a07830}
-  .badge-deep{background:rgba(26,15,46,0.08);color:var(--deep)}
-  .badge-rust{background:rgba(139,58,42,0.1);color:var(--rust)}
-  @media(max-width:600px){.header,.content{padding:16px}.hero{padding:20px}.hero-stats{gap:16px}.h-num{font-size:22px}}
+:root{
+  --gold:#c9a84c;--gold-light:#e8cc80;--gold-dark:#8a6a1a;
+  --crimson:#8b1a1a;--crimson-light:#c23b3b;--crimson-dark:#5a0d0d;
+  --deep:#0d0a1a;--deep2:#1a1228;--deep3:#231830;
+  --surface:#1e1530;--surface2:#271e3a;--surface3:#312548;
+  --text:#f5e6c8;--text2:#d4b896;--text3:#a89070;
+  --teal:#2a8a7a;--teal-light:#3dbfaa;
+  --indigo:#3a2a7a;--indigo-light:#6a5acd;
+  --border:rgba(201,168,76,0.25);--border2:rgba(201,168,76,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--deep);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden;}
 
-  /* ===== PLACEHOLDER SECTIONS FOR DOCUMENT CONTENT ===== */
-  .doc-placeholder{background:#fff;border:2px dashed var(--gold);border-radius:12px;padding:24px;margin:16px 0;text-align:center}
-  .doc-placeholder h4{font-family:'Playfair Display',serif;color:var(--deep);margin-bottom:8px}
-  .doc-placeholder p{color:var(--muted);font-size:13px}
+/* HEADER */
+.site-header{
+  background:linear-gradient(180deg,#0a0614 0%,var(--deep2) 100%);
+  border-bottom:1px solid var(--border2);
+  padding:1.5rem 2rem 1rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.site-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(1.4rem,3vw,2.4rem);
+  color:var(--gold);
+  letter-spacing:0.06em;
+  text-shadow:0 0 30px rgba(201,168,76,0.3);
+  line-height:1.3;
+}
+.site-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;
+  color:var(--text2);
+  font-style:italic;
+  margin-top:0.35rem;
+  letter-spacing:0.04em;
+}
+.devanagari-banner{
+  font-size:1.3rem;
+  color:var(--gold-light);
+  letter-spacing:0.12em;
+  margin-top:0.5rem;
+  opacity:0.85;
+}
+.site-links-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem 1rem;
+  margin-top:0.8rem;font-size:0.78rem;
+}
+.site-links-bar a{color:var(--teal-light);text-decoration:none;opacity:0.8;transition:opacity 0.2s;}
+.site-links-bar a:hover{opacity:1;}
+
+/* NAV TABS */
+.nav-outer{
+  background:var(--deep2);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.nav-scroll{
+  display:flex;overflow-x:auto;scrollbar-width:thin;
+  scrollbar-color:var(--gold-dark) transparent;
+  padding:0 1rem;
+}
+.nav-scroll::-webkit-scrollbar{height:3px;}
+.nav-scroll::-webkit-scrollbar-thumb{background:var(--gold-dark);}
+.nav-tab{
+  flex-shrink:0;
+  padding:0.7rem 1.1rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--text3);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+  white-space:nowrap;
+  background:none;border-top:none;border-left:none;border-right:none;
+  letter-spacing:0.03em;
+}
+.nav-tab:hover{color:var(--gold-light);border-bottom-color:rgba(201,168,76,0.3);}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* MAIN LAYOUT */
+.app-body{display:flex;min-height:calc(100vh - 140px);}
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:var(--deep2);
+  border-right:1px solid var(--border);
+  padding:1.5rem 1rem;
+  display:flex;flex-direction:column;gap:0.3rem;
+  max-height:calc(100vh - 140px);
+  overflow-y:auto;
+  position:sticky;top:72px;
+}
+.sidebar-section-title{
+  font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold-dark);font-weight:600;margin:0.8rem 0 0.3rem;padding-left:0.5rem;
+}
+.sidebar-item{
+  padding:0.5rem 0.75rem;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:0.88rem;
+  color:var(--text2);
+  transition:all 0.18s;
+  border-left:2px solid transparent;
+  line-height:1.4;
+}
+.sidebar-item:hover{background:var(--surface2);color:var(--text);border-left-color:rgba(201,168,76,0.4);}
+.sidebar-item.active{background:var(--surface3);color:var(--gold-light);border-left-color:var(--gold);}
+.sidebar-item .swara-badge{
+  display:inline-block;font-size:0.7rem;
+  background:rgba(201,168,76,0.15);color:var(--gold);
+  border:1px solid var(--border);border-radius:3px;
+  padding:1px 5px;margin-left:0.4rem;vertical-align:middle;
+}
+
+/* CONTENT AREA */
+.content-area{flex:1;padding:2rem;max-width:900px;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* CARDS & SECTIONS */
+.section-header{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.5rem;padding-bottom:0.8rem;
+  border-bottom:1px solid var(--border);
+}
+.section-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+.section-title{font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:var(--gold);line-height:1.3;}
+.section-meta{font-size:0.82rem;color:var(--text3);font-style:italic;margin-top:0.2rem;}
+
+.swara-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1.5rem;margin-bottom:1.5rem;
+  position:relative;overflow:hidden;
+}
+.swara-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.swara-name{
+  font-family:'Cinzel Decorative',serif;font-size:1.1rem;color:var(--gold);
+  display:flex;align-items:center;gap:0.8rem;margin-bottom:0.5rem;
+}
+.swara-devanagari{font-size:1.5rem;color:var(--gold-light);}
+.swara-freq{font-size:0.78rem;color:var(--text3);font-family:monospace;background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:4px;}
+.swara-body{font-size:0.95rem;line-height:1.9;color:var(--text2);}
+.swara-body p{margin-bottom:0.8rem;}
+.swara-body .verse{
+  background:rgba(201,168,76,0.06);border-left:3px solid var(--gold-dark);
+  padding:0.8rem 1rem;border-radius:0 6px 6px 0;
+  font-style:italic;margin:1rem 0;color:var(--text);
+  font-size:1rem;line-height:2;
+}
+.swara-body .verse .transliteration{font-size:0.85rem;color:var(--text3);font-style:normal;margin-top:0.4rem;}
+.swara-body .verse .meaning{font-size:0.85rem;color:var(--teal-light);font-style:normal;margin-top:0.3rem;}
+.cross-ref{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.8rem;
+  margin-top:1.2rem;
+}
+.cross-ref-item{
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:0.75rem 1rem;
+}
+.cross-ref-label{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.3rem;}
+.cross-ref-text{font-size:0.88rem;color:var(--text2);line-height:1.5;}
+
+/* TABS WITHIN PANEL */
+.inner-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.inner-tab{
+  padding:0.4rem 1rem;border-radius:20px;
+  font-size:0.8rem;cursor:pointer;
+  border:1px solid var(--border);
+  background:transparent;color:var(--text3);
+  transition:all 0.18s;font-family:'Cormorant Garamond',serif;
+}
+.inner-tab.active,.inner-tab:hover{background:rgba(201,168,76,0.15);color:var(--gold);border-color:var(--gold);}
+
+/* INFO GRID */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.info-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:1.2rem;
+}
+.info-card-title{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.6rem;}
+.info-card-content{font-size:0.92rem;color:var(--text2);line-height:1.7;}
+
+/* SEARCH AREA */
+.search-box{
+  display:flex;gap:0.5rem;margin-bottom:1.5rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.6rem 1rem;
+  align-items:center;
+}
+.search-box input{
+  flex:1;background:none;border:none;outline:none;
+  color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1rem;
+}
+.search-box input::placeholder{color:var(--text3);}
+.search-btn{
+  padding:0.4rem 1rem;background:rgba(201,168,76,0.2);
+  border:1px solid var(--gold-dark);border-radius:6px;
+  color:var(--gold);cursor:pointer;font-size:0.85rem;
+  transition:all 0.18s;
+}
+.search-btn:hover{background:rgba(201,168,76,0.35);}
+
+/* RESULT OUTPUT */
+.result-output{
+  background:var(--surface);border:1px solid var(--border2);border-radius:10px;
+  padding:1.5rem;min-height:200px;margin-bottom:1rem;
+}
+.result-placeholder{color:var(--text3);font-style:italic;text-align:center;padding:2rem;}
+.result-content{font-size:0.95rem;line-height:1.9;color:var(--text2);}
+.result-content h3{color:var(--gold);font-family:'Cinzel Decorative',serif;font-size:1rem;margin:1rem 0 0.5rem;}
+.result-content .verse-block{
+  background:rgba(201,168,76,0.05);border-left:3px solid var(--gold-dark);
+  padding:0.8rem 1.2rem;margin:0.8rem 0;border-radius:0 6px 6px 0;
+}
+.result-content .verse-block .sans{font-size:1.05rem;color:var(--text);line-height:2;}
+.result-content .verse-block .roman{font-size:0.85rem;color:var(--text3);margin-top:0.3rem;font-style:italic;}
+.result-content .verse-block .mean{font-size:0.88rem;color:var(--teal-light);margin-top:0.2rem;}
+.viewpoint-tabs{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1rem 0;}
+.vp-tab{
+  padding:0.3rem 0.8rem;border-radius:4px;
+  font-size:0.75rem;cursor:pointer;
+  border:1px solid var(--border);
+  background:transparent;color:var(--text3);
+  transition:all 0.15s;
+}
+.vp-tab.active{background:rgba(42,138,122,0.2);color:var(--teal-light);border-color:var(--teal);}
+
+/* LINKS PANEL */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.link-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem;
+  text-decoration:none;display:block;transition:all 0.2s;
+}
+.link-card:hover{border-color:var(--gold);background:var(--surface2);}
+.link-card-title{color:var(--gold-light);font-size:0.95rem;font-weight:600;margin-bottom:0.3rem;}
+.link-card-desc{color:var(--text3);font-size:0.82rem;line-height:1.5;}
+.link-card-url{color:var(--teal-light);font-size:0.75rem;margin-top:0.5rem;opacity:0.8;}
+
+/* SOURCE BADGES */
+.source-note{
+  font-size:0.78rem;color:var(--text3);font-style:italic;
+  border-top:1px solid var(--border);padding-top:0.6rem;margin-top:1rem;
+}
+.source-note a{color:var(--teal-light);}
+
+/* CHATBOT EMBED */
+.chat-section{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;margin-top:1.5rem;
+}
+.chat-header{
+  background:var(--surface2);padding:0.8rem 1.2rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.chat-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+.chat-title{font-size:0.9rem;color:var(--text);font-weight:600;}
+.chat-subtitle{font-size:0.78rem;color:var(--text3);margin-top:0.1rem;}
+.chat-frame{width:100%;border:none;height:500px;}
+
+/* ENQUIRY FORM */
+.enquiry-frame{width:100%;border:none;height:600px;border-radius:10px;}
+
+/* RAGA SECTION */
+.raga-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-bottom:1.5rem;}
+.raga-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:0.9rem 1rem;cursor:pointer;transition:all 0.18s;
+}
+.raga-item:hover{border-color:var(--gold);background:var(--surface2);}
+.raga-name{font-size:0.95rem;color:var(--gold-light);font-weight:600;}
+.raga-swara{font-size:0.78rem;color:var(--text3);margin-top:0.2rem;}
+.raga-mood{font-size:0.75rem;color:var(--teal-light);margin-top:0.2rem;}
+
+/* COMPOSITION CREATOR */
+.creator-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;}
+.creator-row{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+.creator-field{flex:1;min-width:180px;}
+.creator-label{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:0.4rem;}
+.creator-select,.creator-input{
+  width:100%;background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:0.5rem 0.8rem;color:var(--text);
+  font-family:'Cormorant Garamond',serif;font-size:0.9rem;outline:none;
+}
+.creator-select:focus,.creator-input:focus{border-color:var(--gold);}
+.creator-select option{background:var(--deep2);}
+.generate-btn{
+  padding:0.6rem 1.6rem;
+  background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));
+  border:1px solid var(--crimson-light);border-radius:8px;
+  color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1rem;
+  cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;
+}
+.generate-btn:hover{background:linear-gradient(135deg,var(--crimson),var(--crimson-light));transform:translateY(-1px);}
+
+/* LOADING */
+.loading{display:none;align-items:center;gap:0.8rem;color:var(--text3);font-style:italic;padding:1rem 0;}
+.loading.show{display:flex;}
+.spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* MOBILE */
+@media(max-width:768px){
+  .app-body{flex-direction:column;}
+  .sidebar{width:100%;max-height:none;position:static;display:grid;grid-template-columns:repeat(3,1fr);gap:0.3rem;padding:0.8rem;}
+  .sidebar-section-title{display:none;}
+  .content-area{padding:1rem;}
+}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="header">
-    <div class="header-top">
-      <div class="logo">🎵</div>
-      <div class="header-title">
-        <h1>Carnatic Music Encyclopedia</h1>
-        <p>35 Tala Alankaras · Swaras · Ragas · Compositions · Volumes I–IV</p>
-      </div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-title">Nada Neerajanam</div>
+  <div class="devanagari-banner">नाद नीराजनम् — सप्त स्वर ज्ञान मन्दिर</div>
+  <div class="site-subtitle">Sapta Swara · Lalitha Sahasranamavali · Devi Khadgamala · Rudram Namakam & Chamakam</div>
+  <div class="site-links-bar">
+    <a href="https://nadaneerajanamadv1.culturalmusings.com" target="_blank">nadaneerajanamadv1.culturalmusings.com</a>
+    <a href="https://nadaneerajanam.culturalmusings.com" target="_blank">nadaneerajanam.culturalmusings.com</a>
+    <a href="https://culturalmusings.com" target="_blank">culturalmusings.com</a>
+    <a href="https://nada-chikitsa.culturalmusings.com" target="_blank">nada-chikitsa</a>
+    <a href="https://natyashastra.culturalmusings.com" target="_blank">natyashastra</a>
+  </div>
+</header>
+
+<!-- TOP NAV -->
+<nav class="nav-outer">
+  <div class="nav-scroll">
+    <button class="nav-tab active" onclick="showTab('sapta-swaras')">Sapta Swaras</button>
+    <button class="nav-tab" onclick="showTab('lalitha')">Lalitha Sahasranamavali</button>
+    <button class="nav-tab" onclick="showTab('khadgamala')">Devi Khadgamala</button>
+    <button class="nav-tab" onclick="showTab('rudram')">Rudram Namakam</button>
+    <button class="nav-tab" onclick="showTab('chamakam')">Chamakam</button>
+    <button class="nav-tab" onclick="showTab('beeja')">Beejaksharas</button>
+    <button class="nav-tab" onclick="showTab('ragas')">Ragas & Composition</button>
+    <button class="nav-tab" onclick="showTab('cross-ref')">Cross Reference</button>
+    <button class="nav-tab" onclick="showTab('knowledge-base')">Knowledge Search</button>
+    <button class="nav-tab" onclick="showTab('viewpoints')">6 Viewpoints</button>
+    <button class="nav-tab" onclick="showTab('karanas')">Karanas & Mudras</button>
+    <button class="nav-tab" onclick="showTab('vedas-upanishads')">Vedas & Upanishads</button>
+    <button class="nav-tab" onclick="showTab('composition-creator')">Composition Creator</button>
+    <button class="nav-tab" onclick="showTab('nada-chikitsa')">Nada Chikitsa</button>
+    <button class="nav-tab" onclick="showTab('natyashastra')">Natyashastra</button>
+    <button class="nav-tab" onclick="showTab('bioresonance')">Bio-Resonance</button>
+    <button class="nav-tab" onclick="showTab('sacred-links')">Sacred Links</button>
+    <button class="nav-tab" onclick="showTab('enquiry')">Enquiry Form</button>
+    <button class="nav-tab" onclick="showTab('chatbot')">Chatbot</button>
+    <button class="nav-tab" onclick="showTab('about')">About</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="app-body">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section-title">Sapta Swaras</div>
+  <div class="sidebar-item active" onclick="showSwara('sa')">Sa — Shadja <span class="swara-badge">षड्ज</span></div>
+  <div class="sidebar-item" onclick="showSwara('ri')">Ri — Rishabha <span class="swara-badge">ऋषभ</span></div>
+  <div class="sidebar-item" onclick="showSwara('ga')">Ga — Gandhara <span class="swara-badge">गान्धार</span></div>
+  <div class="sidebar-item" onclick="showSwara('ma')">Ma — Madhyama <span class="swara-badge">मध्यम</span></div>
+  <div class="sidebar-item" onclick="showSwara('pa')">Pa — Panchama <span class="swara-badge">पञ्चम</span></div>
+  <div class="sidebar-item" onclick="showSwara('dha')">Dha — Dhaivata <span class="swara-badge">धैवत</span></div>
+  <div class="sidebar-item" onclick="showSwara('ni')">Ni — Nishada <span class="swara-badge">निषाद</span></div>
+  <div class="sidebar-section-title">Texts</div>
+  <div class="sidebar-item" onclick="showTab('lalitha');setActive(this)">Lalitha Sahasranamavali</div>
+  <div class="sidebar-item" onclick="showTab('khadgamala');setActive(this)">Devi Khadgamala</div>
+  <div class="sidebar-item" onclick="showTab('rudram');setActive(this)">Rudram Namakam</div>
+  <div class="sidebar-item" onclick="showTab('chamakam');setActive(this)">Chamakam</div>
+  <div class="sidebar-section-title">Explore</div>
+  <div class="sidebar-item" onclick="showTab('ragas');setActive(this)">Ragas & Composition</div>
+  <div class="sidebar-item" onclick="showTab('cross-ref');setActive(this)">Cross Reference Matrix</div>
+  <div class="sidebar-item" onclick="showTab('knowledge-base');setActive(this)">Knowledge Search</div>
+  <div class="sidebar-item" onclick="showTab('sacred-links');setActive(this)">All Sacred Links</div>
+</aside>
+
+<!-- CONTENT -->
+<main class="content-area">
+
+<!-- ===== TAB: SAPTA SWARAS ===== -->
+<div id="tab-sapta-swaras" class="panel active">
+  <div class="section-header">
+    <div class="section-icon">🎵</div>
+    <div>
+      <div class="section-title">Sapta Swaras — सप्त स्वर</div>
+      <div class="section-meta">The Seven Divine Sounds — Cosmic Bridge between Music & Mantra</div>
     </div>
-    <nav class="nav-bar" id="navBar">
-      <div class="nav-item">
-        <button class="nav-btn active" onclick="openMenu(this,'overview')" data-tab="overview">Overview</button>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'alankaras')" data-tab="alankaras">35 Alankaras ▾</button>
-        <div class="dropdown" id="dd-alankaras">
-          <div class="dd-item" onclick="setSubTab('alankaras','sarali')"><div class="dd-icon">1</div>Sarali Varisai</div>
-          <div class="dd-item" onclick="setSubTab('alankaras','janta')"><div class="dd-icon">2</div>Janta Varisai</div>
-          <div class="dd-item" onclick="setSubTab('alankaras','dhattu')"><div class="dd-icon">3</div>Dhattu Varisai</div>
-          <div class="dd-item" onclick="setSubTab('alankaras','mandra')"><div class="dd-icon">4</div>Mandra Sthayi</div>
-          <div class="dd-item" onclick="setSubTab('alankaras','tara')"><div class="dd-icon">5</div>Tara Sthayi</div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'talas')" data-tab="talas">Talas ▾</button>
-        <div class="dropdown" id="dd-talas">
-          <div class="dd-item" onclick="setSubTab('talas','sapta')"><div class="dd-icon">7</div>Sapta Talas</div>
-          <div class="dd-item" onclick="setSubTab('talas','adi')"><div class="dd-icon">⏱</div>Adi Tala</div>
-          <div class="dd-item" onclick="setSubTab('talas','rupaka')"><div class="dd-icon">⏱</div>Rupaka Tala</div>
-          <div class="dd-item" onclick="setSubTab('talas','misra')"><div class="dd-icon">⏱</div>Misra Chapu</div>
-          <div class="dd-item" onclick="setSubTab('talas','khanda')"><div class="dd-icon">⏱</div>Khanda Chapu</div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'swaras')" data-tab="swaras">Swaras ▾</button>
-        <div class="dropdown" id="dd-swaras">
-          <div class="dd-item" onclick="setSubTab('swaras','sapta')"><div class="dd-icon">7</div>Sapta Swaras</div>
-          <div class="dd-item" onclick="setSubTab('swaras','graha')"><div class="dd-icon">🎼</div>Graha Bedham</div>
-          <div class="dd-item" onclick="setSubTab('swaras','gamaka')"><div class="dd-icon">~</div>Gamakas</div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'ragas')" data-tab="ragas">Ragas ▾</button>
-        <div class="dropdown" id="dd-ragas">
-          <div class="dd-item" onclick="setSubTab('ragas','melakarta')"><div class="dd-icon">72</div>Melakarta</div>
-          <div class="dd-item" onclick="setSubTab('ragas','popular')"><div class="dd-icon">★</div>Popular Ragas</div>
-          <div class="dd-item" onclick="setSubTab('ragas','janya')"><div class="dd-icon">J</div>Janya Ragas</div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'nataraja')" data-tab="nataraja">Nataraja ▾</button>
-        <div class="dropdown" id="dd-nataraja">
-          <div class="dd-item" onclick="setSubTab('nataraja','namastubhyam')"><div class="dd-icon">🙏</div>Namastubhyam</div>
-          <div class="dd-item" onclick="setSubTab('nataraja','significance')"><div class="dd-icon">ॐ</div>Significance</div>
-          <div class="dd-item" onclick="setSubTab('nataraja','lyrics')"><div class="dd-icon">📜</div>Sanskrit Lyrics</div>
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'vol1')" data-tab="vol1">Volume I ▾</button>
-        <div class="dropdown" id="dd-vol1">
-          <div class="dd-item" onclick="setSubTab('vol1','intro')"><div class="dd-icon">📖</div>Introduction</div>
-          <div class="dd-item" onclick="setSubTab('vol1','lessons')"><div class="dd-icon">📝</div>Lessons 1–10</div>
-          <div class="dd-item" onclick="setSubTab('vol1','exercises')"><div class="dd-icon">✏</div>Exercises</div>
-          <!-- ADD MORE VOLUME 1 SUBTABS FROM DOCUMENT HERE -->
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'vol2')" data-tab="vol2">Volume II ▾</button>
-        <div class="dropdown" id="dd-vol2">
-          <div class="dd-item" onclick="setSubTab('vol2','intro')"><div class="dd-icon">📖</div>Introduction</div>
-          <div class="dd-item" onclick="setSubTab('vol2','lessons')"><div class="dd-icon">📝</div>Lessons 11–20</div>
-          <div class="dd-item" onclick="setSubTab('vol2','compositions')"><div class="dd-icon">🎵</div>Compositions</div>
-          <!-- ADD MORE VOLUME 2 SUBTABS FROM DOCUMENT HERE -->
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'vol3')" data-tab="vol3">Volume III ▾</button>
-        <div class="dropdown" id="dd-vol3">
-          <div class="dd-item" onclick="setSubTab('vol3','intro')"><div class="dd-icon">📖</div>Introduction</div>
-          <div class="dd-item" onclick="setSubTab('vol3','advanced')"><div class="dd-icon">📝</div>Advanced Lessons</div>
-          <div class="dd-item" onclick="setSubTab('vol3','varnams')"><div class="dd-icon">🎵</div>Varnams</div>
-          <!-- ADD MORE VOLUME 3 SUBTABS FROM DOCUMENT HERE -->
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'vol4')" data-tab="vol4">Volume IV ▾</button>
-        <div class="dropdown" id="dd-vol4">
-          <div class="dd-item" onclick="setSubTab('vol4','intro')"><div class="dd-icon">📖</div>Introduction</div>
-          <div class="dd-item" onclick="setSubTab('vol4','kritis')"><div class="dd-icon">🎵</div>Kritis</div>
-          <div class="dd-item" onclick="setSubTab('vol4','reference')"><div class="dd-icon">📚</div>Reference</div>
-          <!-- ADD MORE VOLUME 4 SUBTABS FROM DOCUMENT HERE -->
-        </div>
-      </div>
-      <div class="nav-item">
-        <button class="nav-btn" onclick="openMenu(this,'glossary')" data-tab="glossary">Glossary</button>
-      </div>
-    </nav>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-title">Philosophical Basis</div>
+      <div class="info-card-content">The Sapta Swaras are not merely musical notes but manifestations of Nada Brahman — the primordial sound of universal consciousness. Each swara is a living vibration carrying deity-consciousness.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Yogic Significance</div>
+      <div class="info-card-content">Each of the seven swaras corresponds to a specific chakra, activating pranic flow through the sushumna nadi when sung correctly. Sa-Ri-Ga-Ma-Pa-Dha-Ni maps to Muladhara through Sahasrara.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Vedic Origin</div>
+      <div class="info-card-content">The Samaveda is the song of the Vedas — it prescribes swaras for every Rigvedic mantra. The Gandharva Veda details how swaras connect cosmic order (rita) with musical order (swara).</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Connection to Lalitha</div>
+      <div class="info-card-content">Devi Lalitha is described in the Sahasranamavali as residing in the Nada — "Nada-rupa" — being the very form of sound. Her 1000 names traverse the entire spectrum of divine vibration.</div>
+    </div>
   </div>
 
-  <div class="content">
+  <div id="swara-display"><!-- Filled by JS --></div>
 
-    <!-- OVERVIEW -->
-    <div class="tab-panel active" id="panel-overview">
-      <div class="hero">
-        <h2>Classical Carnatic Music</h2>
-        <p>A comprehensive guide to the ancient art of Carnatic music — from foundational exercises to advanced compositions, covering talas, swaras, ragas, and devotional pieces.</p>
-        <div class="hero-stats">
-          <div class="h-stat"><div class="h-num">35</div><div class="h-label">Alankaras</div></div>
-          <div class="h-stat"><div class="h-num">72</div><div class="h-label">Melakarta Ragas</div></div>
-          <div class="h-stat"><div class="h-num">7</div><div class="h-label">Sapta Talas</div></div>
-          <div class="h-stat"><div class="h-num">4</div><div class="h-label">Volumes</div></div>
-        </div>
-      </div>
-      <div class="card-grid">
-        <div class="card" onclick="goTab('alankaras')"><div class="card-num">MODULE 01</div><div class="card-title">35 Tala Alankaras</div><div class="card-sub">Systematic exercises in all 7 talas × 5 Jatis</div></div>
-        <div class="card" onclick="goTab('talas')"><div class="card-num">MODULE 02</div><div class="card-title">Talas & Rhythm</div><div class="card-sub">Sapta Tala system, Chapu talas, and Laya</div></div>
-        <div class="card" onclick="goTab('swaras')"><div class="card-num">MODULE 03</div><div class="card-title">Swaras & Scales</div><div class="card-sub">Sapta swaras, gamakas, and Graha Bedham</div></div>
-        <div class="card" onclick="goTab('ragas')"><div class="card-num">MODULE 04</div><div class="card-title">Raga System</div><div class="card-sub">72 Melakarta ragas and Janya ragas</div></div>
-        <div class="card" onclick="goTab('nataraja')"><div class="card-num">MODULE 05</div><div class="card-title">Nataraja Namastubhyam</div><div class="card-sub">Sanskrit devotional composition</div></div>
-        <div class="card" onclick="goTab('vol1')"><div class="card-num">VOLUME I</div><div class="card-title">Beginner Lessons</div><div class="card-sub">Sarali, Janta, Alankaras — Lessons 1–10</div></div>
-        <div class="card" onclick="goTab('vol2')"><div class="card-num">VOLUME II</div><div class="card-title">Intermediate Study</div><div class="card-sub">Geetams, Swarajatis — Lessons 11–20</div></div>
-        <div class="card" onclick="goTab('vol3')"><div class="card-num">VOLUME III</div><div class="card-title">Advanced Practice</div><div class="card-sub">Varnams, Keertanas, complex compositions</div></div>
-        <div class="card" onclick="goTab('vol4')"><div class="card-num">VOLUME IV</div><div class="card-title">Masterclass</div><div class="card-sub">Kritis, Ragam-Tanam-Pallavi, Reference</div></div>
-        <div class="card" onclick="goTab('glossary')"><div class="card-num">REFERENCE</div><div class="card-title">Glossary</div><div class="card-sub">Key terms, Sanskrit definitions, notation guide</div></div>
-      </div>
-    </div>
-
-    <!-- ALANKARAS -->
-    <div class="tab-panel" id="panel-alankaras">
-      <div class="section-header">
-        <h2>35 Tala Alankaras</h2>
-        <div class="divider"></div>
-        <p>The 35 Alankaras are fundamental exercises derived from 7 Talas × 5 Jatis. They form the backbone of Carnatic vocal and instrumental training.</p>
-      </div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'sarali','alankaras')">Sarali Varisai</div>
-        <div class="sub-tab" onclick="showSub(this,'janta','alankaras')">Janta Varisai</div>
-        <div class="sub-tab" onclick="showSub(this,'dhattu','alankaras')">Dhattu Varisai</div>
-        <div class="sub-tab" onclick="showSub(this,'mandra','alankaras')">Mandra Sthayi</div>
-        <div class="sub-tab" onclick="showSub(this,'tara','alankaras')">Tara Sthayi</div>
-      </div>
-      <div id="sub-sarali-alankaras">
-        <div class="info-block">
-          <h3>Sarali Varisai — Linear Scale Exercises</h3>
-          <p>Sarali Varisai are the first exercises taught in Carnatic music. They involve ascending and descending the swaras in a linear pattern within a given tala. Practiced in Mayamalavagowla raga by default.</p>
-        </div>
-        <!-- PASTE EXACT SARALI CONTENT FROM 35-TALA-ALANKARAS DOCUMENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the exact Sarali Varisai exercises from the 35 Tala Alankaras document</p></div>
-        <div class="info-block">
-          <h3>Exercise 1 — Tisra Jati</h3>
-          <div class="notation"><span class="note-sa">S</span> <span class="note-ri">R</span> <span class="note-ga">G</span> <span class="note-bar">|</span> <span class="note-ma">M</span> <span class="note-pa">P</span> <span class="note-dha">D</span> <span class="note-bar">|</span> <span class="note-ni">N</span> <span class="note-sa">Ṡ</span> <span class="note-sa">Ṡ</span> <span class="note-bar">||</span> <span class="note-sa">Ṡ</span> <span class="note-ni">N</span> <span class="note-dha">D</span> <span class="note-bar">|</span> <span class="note-pa">P</span> <span class="note-ma">M</span> <span class="note-ga">G</span> <span class="note-bar">|</span> <span class="note-ri">R</span> <span class="note-sa">S</span> <span class="note-sa">S</span></div>
-        </div>
-        <table>
-          <tr><th>#</th><th>Exercise</th><th>Jati</th><th>Beat Count</th><th>Level</th></tr>
-          <tr><td>1</td><td>Sarali 1</td><td>Tisra</td><td>3</td><td><span class="badge badge-gold">Beginner</span></td></tr>
-          <tr><td>2</td><td>Sarali 2</td><td>Chatusra</td><td>4</td><td><span class="badge badge-gold">Beginner</span></td></tr>
-          <tr><td>3</td><td>Sarali 3</td><td>Khanda</td><td>5</td><td><span class="badge badge-deep">Intermediate</span></td></tr>
-          <tr><td>4</td><td>Sarali 4</td><td>Misra</td><td>7</td><td><span class="badge badge-deep">Intermediate</span></td></tr>
-          <tr><td>5</td><td>Sarali 5</td><td>Sankirna</td><td>9</td><td><span class="badge badge-rust">Advanced</span></td></tr>
-        </table>
-      </div>
-      <div id="sub-janta-alankaras" style="display:none">
-        <div class="info-block"><h3>Janta Varisai — Double-note Exercises</h3><p>Janta Varisai exercises repeat each swara twice before moving to the next. "Janta" means pair or twin in Telugu.</p></div>
-        <!-- PASTE EXACT JANTA CONTENT FROM DOCUMENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the exact Janta Varisai exercises from the document</p></div>
-      </div>
-      <div id="sub-dhattu-alankaras" style="display:none">
-        <div class="info-block"><h3>Dhattu Varisai — Leap Exercises</h3><p>Dhattu Varisai involve leaps and skips between swaras.</p></div>
-        <!-- PASTE EXACT DHATTU CONTENT FROM DOCUMENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the exact Dhattu Varisai exercises from the document</p></div>
-      </div>
-      <div id="sub-mandra-alankaras" style="display:none">
-        <div class="info-block"><h3>Mandra Sthayi — Lower Octave Exercises</h3><p>Exercises 16–25 are performed in the lower octave.</p></div>
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the Mandra Sthayi exercises from the document</p></div>
-      </div>
-      <div id="sub-tara-alankaras" style="display:none">
-        <div class="info-block"><h3>Tara Sthayi — Upper Octave Exercises</h3><p>Exercises 26–35 are performed in the upper octave.</p></div>
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the Tara Sthayi exercises from the document</p></div>
-        <div class="info-block">
-          <h3>Complete 35 Alankara Map</h3>
-          <table>
-            <tr><th>Nos.</th><th>Category</th><th>Sthayi</th><th>Jatis</th></tr>
-            <tr><td>1–5</td><td>Sarali Varisai</td><td>Madhya</td><td>Tisra, Chatusra, Khanda, Misra, Sankirna</td></tr>
-            <tr><td>6–10</td><td>Janta Varisai</td><td>Madhya</td><td>Tisra, Chatusra, Khanda, Misra, Sankirna</td></tr>
-            <tr><td>11–15</td><td>Dhattu Varisai</td><td>Madhya</td><td>Tisra, Chatusra, Khanda, Misra, Sankirna</td></tr>
-            <tr><td>16–25</td><td>Mandra Sthayi</td><td>Lower</td><td>All 5 Jatis × 2 types</td></tr>
-            <tr><td>26–35</td><td>Tara Sthayi</td><td>Upper</td><td>All 5 Jatis × 2 types</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- TALAS -->
-    <div class="tab-panel" id="panel-talas">
-      <div class="section-header"><h2>Tala System</h2><div class="divider"></div><p>Tala is the rhythmic framework of Carnatic music. The Sapta Tala system contains 7 primary talas.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'sapta','talas')">Sapta Talas</div>
-        <div class="sub-tab" onclick="showSub(this,'adi','talas')">Adi Tala</div>
-        <div class="sub-tab" onclick="showSub(this,'rupaka','talas')">Rupaka</div>
-        <div class="sub-tab" onclick="showSub(this,'misra','talas')">Misra Chapu</div>
-        <div class="sub-tab" onclick="showSub(this,'khanda','talas')">Khanda Chapu</div>
-      </div>
-      <div id="sub-sapta-talas">
-        <table>
-          <tr><th>Tala</th><th>Angas</th><th>Aksharas</th><th>Chatusra Jati</th><th>Common Use</th></tr>
-          <tr><td><strong>Dhruva</strong></td><td>L, D, L, L</td><td>14</td><td>4+2+4+4</td><td>Rare, formal compositions</td></tr>
-          <tr><td><strong>Matya</strong></td><td>L, D, L</td><td>10</td><td>4+2+4</td><td>Uncommon compositions</td></tr>
-          <tr><td><strong>Rupaka</strong></td><td>D, L</td><td>6</td><td>2+4</td><td>Very common — Kritis</td></tr>
-          <tr><td><strong>Jhampa</strong></td><td>L, A, D</td><td>10</td><td>7+1+2</td><td>Rare</td></tr>
-          <tr><td><strong>Triputa</strong></td><td>L, D, D</td><td>7</td><td>3+2+2</td><td>Adi Tala (Chatusra)</td></tr>
-          <tr><td><strong>Ata</strong></td><td>L, L, D, D</td><td>14</td><td>5+5+2+2</td><td>Varnams</td></tr>
-          <tr><td><strong>Eka</strong></td><td>L</td><td>4</td><td>4</td><td>Practice exercises</td></tr>
-        </table>
-        <div class="info-block" style="margin-top:16px"><h3>Tala Angas Explained</h3>
-          <div class="info-row"><span class="info-label">Laghu (L)</span><span class="info-value">Clap + finger counts. Duration varies by Jati</span></div>
-          <div class="info-row"><span class="info-label">Drutam (D)</span><span class="info-value">Clap + wave. Always 2 counts</span></div>
-          <div class="info-row"><span class="info-label">Anudrutam (A)</span><span class="info-value">Single clap. Always 1 count</span></div>
-        </div>
-      </div>
-      <div id="sub-adi-talas" style="display:none">
-        <div class="info-block"><h3>Adi Tala — The Most Common Tala</h3><p>Adi Tala is Chatusra Jati Triputa Tala. It has 8 aksharas: one Laghu of 4 beats + two Drutams of 2 beats each.</p></div>
-        <div class="tala-vis">
-          <div class="beat beat-clap">1</div><div class="beat beat-finger">2</div><div class="beat beat-finger">3</div><div class="beat beat-finger">4</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-wave">0</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-wave">0</div>
-        </div>
-      </div>
-      <div id="sub-rupaka-talas" style="display:none">
-        <div class="info-block"><h3>Rupaka Tala</h3><p>6 aksharas: Drutam + Laghu (2+4). Begins with a wave — unique among talas.</p></div>
-        <div class="tala-vis">
-          <div class="beat beat-wave">0</div><div class="beat beat-clap">1</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-finger">2</div><div class="beat beat-finger">3</div><div class="beat beat-finger">4</div>
-        </div>
-      </div>
-      <div id="sub-misra-talas" style="display:none">
-        <div class="info-block"><h3>Misra Chapu Tala</h3><p>7-beat tala grouped as 3+2+2 or 3+4. Extremely popular in folk and devotional music.</p></div>
-        <div class="tala-vis">
-          <div class="beat beat-clap">1</div><div class="beat beat-finger">2</div><div class="beat beat-finger">3</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-wave">2</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-wave">2</div>
-        </div>
-      </div>
-      <div id="sub-khanda-talas" style="display:none">
-        <div class="info-block"><h3>Khanda Chapu Tala</h3><p>5-beat tala grouped as 2+3. Used extensively in folk music, Tillanas, and Padam forms.</p></div>
-        <div class="tala-vis">
-          <div class="beat beat-clap">1</div><div class="beat beat-wave">2</div>
-          <div style="width:8px"></div>
-          <div class="beat beat-clap">1</div><div class="beat beat-finger">2</div><div class="beat beat-finger">3</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SWARAS -->
-    <div class="tab-panel" id="panel-swaras">
-      <div class="section-header"><h2>Swara System</h2><div class="divider"></div><p>The 7 primary swaras (Sapta Swaras) form the basis of all ragas.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'sapta','swaras')">Sapta Swaras</div>
-        <div class="sub-tab" onclick="showSub(this,'graha','swaras')">Graha Bedham</div>
-        <div class="sub-tab" onclick="showSub(this,'gamaka','swaras')">Gamakas</div>
-      </div>
-      <div id="sub-sapta-swaras">
-        <table>
-          <tr><th>Swara</th><th>Full Name</th><th>Symbol</th><th>Variants</th><th>Solfège</th></tr>
-          <tr><td><span class="swara s-sa">S</span></td><td>Shadja</td><td>Sa</td><td>1 (fixed)</td><td>Do</td></tr>
-          <tr><td><span class="swara s-ri">R</span></td><td>Rishabha</td><td>Ri / Re</td><td>3 (R1, R2, R3)</td><td>Re</td></tr>
-          <tr><td><span class="swara s-ga">G</span></td><td>Gandhara</td><td>Ga</td><td>3 (G1, G2, G3)</td><td>Mi</td></tr>
-          <tr><td><span class="swara s-ma">M</span></td><td>Madhyama</td><td>Ma</td><td>2 (M1, M2)</td><td>Fa</td></tr>
-          <tr><td><span class="swara s-pa">P</span></td><td>Panchama</td><td>Pa</td><td>1 (fixed)</td><td>Sol</td></tr>
-          <tr><td><span class="swara s-dha">D</span></td><td>Dhaivata</td><td>Dha</td><td>3 (D1, D2, D3)</td><td>La</td></tr>
-          <tr><td><span class="swara s-ni">N</span></td><td>Nishada</td><td>Ni</td><td>3 (N1, N2, N3)</td><td>Ti</td></tr>
-        </table>
-        <div class="info-block" style="margin-top:16px"><h3>Mayamalavagowla — Standard Practice Raga</h3>
-          <div class="swara-row"><span class="swara s-sa">S</span><span class="swara s-ri">R1</span><span class="swara s-ga">G3</span><span class="swara s-ma">M1</span><span class="swara s-pa">P</span><span class="swara s-dha">D1</span><span class="swara s-ni">N3</span><span class="swara s-sa">Ṡ</span></div>
-        </div>
-      </div>
-      <div id="sub-graha-swaras" style="display:none">
-        <div class="info-block"><h3>Graha Bedham — Modal Shift</h3><p>By shifting the tonic (Sa) to different swaras of a parent scale, new ragas are generated.</p></div>
-        <table>
-          <tr><th>Starting Swara</th><th>New Raga Generated</th><th>Western Equivalent</th></tr>
-          <tr><td>Sa (S)</td><td>Shankarabharanam</td><td>Ionian / Major</td></tr>
-          <tr><td>Ri (R)</td><td>Kharaharapriya</td><td>Dorian</td></tr>
-          <tr><td>Ma (M)</td><td>Kalyani</td><td>Lydian</td></tr>
-          <tr><td>Pa (P)</td><td>Harikambhoji</td><td>Mixolydian</td></tr>
-          <tr><td>Dha (D)</td><td>Natabhairavi</td><td>Aeolian / Minor</td></tr>
-        </table>
-      </div>
-      <div id="sub-gamaka-swaras" style="display:none">
-        <div class="info-block"><h3>Gamakas — Ornamentations</h3><p>Gamakas are essential ornaments that give Carnatic music its characteristic beauty. They are not optional — they define the identity of each raga.</p></div>
-        <table>
-          <tr><th>Gamaka</th><th>Description</th></tr>
-          <tr><td>Kampita</td><td>Oscillation/vibrato around a note</td></tr>
-          <tr><td>Jaru</td><td>Glide up or down between notes</td></tr>
-          <tr><td>Sphuritam</td><td>Sudden appearance of a note</td></tr>
-          <tr><td>Pratyahatam</td><td>Touch of upper note then return</td></tr>
-          <tr><td>Nokku</td><td>Emphasis/accent on a note</td></tr>
-          <tr><td>Orikkai</td><td>Touch of lower note</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <!-- RAGAS -->
-    <div class="tab-panel" id="panel-ragas">
-      <div class="section-header"><h2>Raga System</h2><div class="divider"></div><p>A Raga is a melodic framework specifying swaras, ornaments, and characteristic phrases. There are 72 parent Melakarta ragas.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'melakarta','ragas')">Melakarta</div>
-        <div class="sub-tab" onclick="showSub(this,'popular','ragas')">Popular Ragas</div>
-        <div class="sub-tab" onclick="showSub(this,'janya','ragas')">Janya Ragas</div>
-      </div>
-      <div id="sub-melakarta-ragas">
-        <table>
-          <tr><th>Chakra</th><th>Nos.</th><th>Ma type</th><th>Key Raga</th></tr>
-          <tr><td>1. Indu</td><td>1–6</td><td>M1</td><td>Kanakangi (1)</td></tr>
-          <tr><td>2. Netra</td><td>7–12</td><td>M1</td><td>Senavati (7)</td></tr>
-          <tr><td>3. Agni</td><td>13–18</td><td>M1</td><td>Gayakapriya (13)</td></tr>
-          <tr><td>4. Veda</td><td>19–24</td><td>M1</td><td>Jhankara Dhvani (19)</td></tr>
-          <tr><td>5. Bana</td><td>25–30</td><td>M1</td><td>Ramapriya (25)</td></tr>
-          <tr><td>6. Rutu</td><td>31–36</td><td>M1</td><td>Yagapriya (31)</td></tr>
-          <tr><td>7. Rishi</td><td>37–42</td><td>M2</td><td>Salagam (37)</td></tr>
-          <tr><td>8. Vasu</td><td>43–48</td><td>M2</td><td>Gavambodhi (43)</td></tr>
-          <tr><td>9. Brahma</td><td>49–54</td><td>M2</td><td>Dhavalambari (49)</td></tr>
-          <tr><td>10. Disi</td><td>55–60</td><td>M2</td><td>Shamalangi (55)</td></tr>
-          <tr><td>11. Rudra</td><td>61–66</td><td>M2</td><td>Kantamani (61)</td></tr>
-          <tr><td>12. Aditya</td><td>67–72</td><td>M2</td><td>Nasikabhushani (67)</td></tr>
-        </table>
-      </div>
-      <div id="sub-popular-ragas" style="display:none">
-        <div class="card-grid">
-          <div class="card"><div class="card-num">MELAKARTA 29</div><div class="card-title">Shankarabharanam</div><div class="card-sub">S R2 G3 M1 P D2 N3 — Western major scale equivalent</div></div>
-          <div class="card"><div class="card-num">MELAKARTA 22</div><div class="card-title">Kharaharapriya</div><div class="card-sub">S R2 G2 M1 P D2 N2 — Dorian mode</div></div>
-          <div class="card"><div class="card-num">MELAKARTA 65</div><div class="card-title">Mechakalyani</div><div class="card-sub">S R2 G3 M2 P D2 N3 — Lydian mode</div></div>
-          <div class="card"><div class="card-num">MELAKARTA 15</div><div class="card-title">Mayamalavagowla</div><div class="card-sub">S R1 G3 M1 P D1 N3 — Standard practice raga</div></div>
-          <div class="card"><div class="card-num">MELAKARTA 28</div><div class="card-title">Harikambhoji</div><div class="card-sub">S R2 G3 M1 P D2 N2 — Parent of Kapi, Khamas</div></div>
-          <div class="card"><div class="card-num">MELAKARTA 20</div><div class="card-title">Natabhairavi</div><div class="card-sub">S R2 G2 M1 P D1 N2 — Natural minor</div></div>
-        </div>
-      </div>
-      <div id="sub-janya-ragas" style="display:none">
-        <table>
-          <tr><th>Janya Raga</th><th>Parent Melakarta</th><th>Aaroha</th><th>Avaroha</th></tr>
-          <tr><td>Mohanam</td><td>Harikambhoji (28)</td><td>S R2 G3 P D2 Ṡ</td><td>Ṡ D2 P G3 R2 S</td></tr>
-          <tr><td>Hamsadhvani</td><td>Shankarabharanam (29)</td><td>S R2 G3 P N3 Ṡ</td><td>Ṡ N3 P G3 R2 S</td></tr>
-          <tr><td>Hindolam</td><td>Todi (8)</td><td>S G2 M1 D1 N2 Ṡ</td><td>Ṡ N2 D1 M1 G2 S</td></tr>
-          <tr><td>Bhairavi</td><td>Natabhairavi (20)</td><td>S G2 M1 P D1 N2 Ṡ</td><td>Ṡ N2 D1 P M1 G2 R2 S</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <!-- NATARAJA -->
-    <div class="tab-panel" id="panel-nataraja">
-      <div class="section-header"><h2>नटराज नमस्तुभ्यम्</h2><div class="divider"></div><p>Nataraja Namastubhyam — A devotional composition in praise of Shiva Nataraja, the Lord of Dance</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'namastubhyam','nataraja')">Namastubhyam</div>
-        <div class="sub-tab" onclick="showSub(this,'significance','nataraja')">Significance</div>
-        <div class="sub-tab" onclick="showSub(this,'lyrics','nataraja')">Sanskrit Lyrics</div>
-      </div>
-      <div id="sub-namastubhyam-nataraja">
-        <div class="info-block"><h3>Overview</h3>
-          <div class="info-row"><span class="info-label">Deity</span><span class="info-value">Nataraja (Shiva — Lord of Dance)</span></div>
-          <div class="info-row"><span class="info-label">Language</span><span class="info-value">Sanskrit</span></div>
-          <div class="info-row"><span class="info-label">Genre</span><span class="info-value">Stotra / Devotional Composition</span></div>
-        </div>
-        <!-- PASTE FULL NATARAJA DOCUMENT CONTENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the full content from नटराज नमस्तुभ्यम् document here</p></div>
-      </div>
-      <div id="sub-significance-nataraja" style="display:none">
-        <div class="info-block"><h3>Five Acts (Panchakriya) of Nataraja</h3>
-          <table>
-            <tr><th>Act</th><th>Sanskrit</th><th>Symbolism</th></tr>
-            <tr><td>Creation</td><td>Srishti</td><td>Damaru (drum) — sound creates the universe</td></tr>
-            <tr><td>Preservation</td><td>Sthiti</td><td>Holds Agni (fire)</td></tr>
-            <tr><td>Destruction</td><td>Samhara</td><td>The dance destroys ignorance</td></tr>
-            <tr><td>Concealment</td><td>Tirobhava</td><td>The veil of Maya</td></tr>
-            <tr><td>Liberation</td><td>Anugraha</td><td>Raised foot — path to moksha</td></tr>
-          </table>
-        </div>
-      </div>
-      <div id="sub-lyrics-nataraja" style="display:none">
-        <div class="info-block">
-          <h3>Pallavi</h3>
-          <div style="font-size:18px;font-family:'Playfair Display',serif;line-height:2;color:var(--deep);margin:12px 0">नटराज नमस्तुभ्यम्<br>नटराज नमस्तुभ्यम्</div>
-          <p style="color:var(--muted);font-size:14px;font-style:italic">Nataraaja namastubhyam — Salutations to Nataraja, King of Dance</p>
-        </div>
-        <!-- PASTE FULL LYRICS FROM DOCUMENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the complete Sanskrit lyrics and transliteration from the document</p></div>
-      </div>
-    </div>
-
-    <!-- VOLUME 1 -->
-    <div class="tab-panel" id="panel-vol1">
-      <div class="section-header"><h2>Volume I — Foundation</h2><div class="divider"></div><p>Foundational exercises for beginners — Sarali Varisai, Janta Varisai, and introductory Alankaras.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'intro','vol1')">Introduction</div>
-        <div class="sub-tab" onclick="showSub(this,'lessons','vol1')">Lessons 1–10</div>
-        <div class="sub-tab" onclick="showSub(this,'exercises','vol1')">Exercises</div>
-      </div>
-      <div id="sub-intro-vol1">
-        <!-- PASTE VOLUME 1 INTRODUCTION FROM DOCUMENT HERE -->
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the full Volume I introduction and content from the VOLUME_1 file</p></div>
-      </div>
-      <div id="sub-lessons-vol1" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste Lessons 1–10 from Volume I</p></div>
-      </div>
-      <div id="sub-exercises-vol1" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste exercises from Volume I</p></div>
-      </div>
-    </div>
-
-    <!-- VOLUME 2 -->
-    <div class="tab-panel" id="panel-vol2">
-      <div class="section-header"><h2>Volume II — Intermediate</h2><div class="divider"></div><p>Alankaras in all 5 Jatis, Geetams, and more complex exercises.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'intro','vol2')">Introduction</div>
-        <div class="sub-tab" onclick="showSub(this,'lessons','vol2')">Lessons 11–20</div>
-        <div class="sub-tab" onclick="showSub(this,'compositions','vol2')">Compositions</div>
-      </div>
-      <div id="sub-intro-vol2">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the full Volume II introduction and content from the VOLUME_2 file</p></div>
-      </div>
-      <div id="sub-lessons-vol2" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste Lessons 11–20 from Volume II</p></div>
-      </div>
-      <div id="sub-compositions-vol2" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste compositions from Volume II</p></div>
-      </div>
-    </div>
-
-    <!-- VOLUME 3 -->
-    <div class="tab-panel" id="panel-vol3">
-      <div class="section-header"><h2>Volume III — Advanced Practice</h2><div class="divider"></div><p>Varnams and advanced compositions across multiple ragas.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'intro','vol3')">Introduction</div>
-        <div class="sub-tab" onclick="showSub(this,'advanced','vol3')">Advanced Lessons</div>
-        <div class="sub-tab" onclick="showSub(this,'varnams','vol3')">Varnams</div>
-      </div>
-      <div id="sub-intro-vol3">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the full Volume III introduction and content from the VOLUME_3 file</p></div>
-      </div>
-      <div id="sub-advanced-vol3" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste advanced lessons from Volume III</p></div>
-      </div>
-      <div id="sub-varnams-vol3" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste Varnam content from Volume III</p></div>
-      </div>
-    </div>
-
-    <!-- VOLUME 4 -->
-    <div class="tab-panel" id="panel-vol4">
-      <div class="section-header"><h2>Volume IV — Masterclass</h2><div class="divider"></div><p>The Musical Trinity, Kritis, and Ragam-Tanam-Pallavi improvisation.</p></div>
-      <div class="sub-tabs">
-        <div class="sub-tab active" onclick="showSub(this,'intro','vol4')">Introduction</div>
-        <div class="sub-tab" onclick="showSub(this,'kritis','vol4')">Kritis</div>
-        <div class="sub-tab" onclick="showSub(this,'reference','vol4')">Reference</div>
-      </div>
-      <div id="sub-intro-vol4">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste the full Volume IV introduction and content from the VOLUME_4 file</p></div>
-        <div class="info-block"><h3>The Musical Trinity</h3>
-          <table>
-            <tr><th>Composer</th><th>Period</th><th>Language</th><th>Known for</th></tr>
-            <tr><td>Tyagaraja</td><td>1767–1847</td><td>Telugu</td><td>Over 700 kritis, Rama bhakti</td></tr>
-            <tr><td>Muthuswami Dikshitar</td><td>1775–1835</td><td>Sanskrit</td><td>Mantra-like compositions, 72 Melakarta set</td></tr>
-            <tr><td>Syama Sastri</td><td>1762–1827</td><td>Telugu/Sanskrit</td><td>Profound compositions, Devi devotion</td></tr>
-          </table>
-        </div>
-      </div>
-      <div id="sub-kritis-vol4" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste Kriti content from Volume IV</p></div>
-      </div>
-      <div id="sub-reference-vol4" style="display:none">
-        <div class="doc-placeholder"><h4>📄 Document Content Goes Here</h4><p>Paste reference material from Volume IV</p></div>
-      </div>
-    </div>
-
-    <!-- GLOSSARY -->
-    <div class="tab-panel" id="panel-glossary">
-      <div class="section-header"><h2>Glossary of Terms</h2><div class="divider"></div><p>Key Sanskrit and Telugu terms used in Carnatic music</p></div>
-      <table>
-        <tr><th>Term</th><th>Language</th><th>Definition</th></tr>
-        <tr><td><strong>Alankara</strong></td><td>Sanskrit</td><td>Ornament; systematic exercises in different talas and jatis</td></tr>
-        <tr><td><strong>Aaroha</strong></td><td>Sanskrit</td><td>Ascending scale of a raga</td></tr>
-        <tr><td><strong>Avaroha</strong></td><td>Sanskrit</td><td>Descending scale of a raga</td></tr>
-        <tr><td><strong>Akshara</strong></td><td>Sanskrit</td><td>The basic unit of rhythmic time in a tala</td></tr>
-        <tr><td><strong>Bhava</strong></td><td>Sanskrit</td><td>Emotional expression; the soul of a musical rendition</td></tr>
-        <tr><td><strong>Charanam</strong></td><td>Sanskrit</td><td>The main body/verse section of a composition</td></tr>
-        <tr><td><strong>Chatusra</strong></td><td>Sanskrit</td><td>4-count; the most common jati in Carnatic music</td></tr>
-        <tr><td><strong>Eduppu</strong></td><td>Tamil/Telugu</td><td>The starting beat of a composition within the tala cycle</td></tr>
-        <tr><td><strong>Gamaka</strong></td><td>Sanskrit</td><td>Musical ornament; embellishment applied to a swara</td></tr>
-        <tr><td><strong>Geetam</strong></td><td>Sanskrit</td><td>Simple song; the first compositional form taught to students</td></tr>
-        <tr><td><strong>Graha Bedham</strong></td><td>Sanskrit</td><td>Modal shift by changing the tonic note</td></tr>
-        <tr><td><strong>Jati</strong></td><td>Sanskrit</td><td>Subdivisions determining the internal pulse of a Laghu</td></tr>
-        <tr><td><strong>Kalpanaswaram</strong></td><td>Sanskrit</td><td>Improvised swara passages within a tala cycle</td></tr>
-        <tr><td><strong>Khanda</strong></td><td>Sanskrit</td><td>5-count jati</td></tr>
-        <tr><td><strong>Kriti</strong></td><td>Sanskrit</td><td>The most important compositional form in Carnatic music</td></tr>
-        <tr><td><strong>Laya</strong></td><td>Sanskrit</td><td>Tempo; the speed at which music is performed</td></tr>
-        <tr><td><strong>Melakarta</strong></td><td>Sanskrit/Kannada</td><td>Parent raga from which Janya ragas are derived</td></tr>
-        <tr><td><strong>Misra</strong></td><td>Sanskrit</td><td>Mixed; 7-count jati or Misra Chapu tala</td></tr>
-        <tr><td><strong>Neraval</strong></td><td>Tamil</td><td>Melodic improvisation on a single line of a composition</td></tr>
-        <tr><td><strong>Pallavi</strong></td><td>Sanskrit</td><td>The opening/refrain section of a composition</td></tr>
-        <tr><td><strong>Raga</strong></td><td>Sanskrit</td><td>Melodic framework with characteristic phrases and mood</td></tr>
-        <tr><td><strong>Sahitya</strong></td><td>Sanskrit</td><td>The lyrics/text of a composition</td></tr>
-        <tr><td><strong>Sankirna</strong></td><td>Sanskrit</td><td>9-count jati; the most complex standard jati</td></tr>
-        <tr><td><strong>Shruti</strong></td><td>Sanskrit</td><td>Pitch; also the microtonal intervals of Indian music</td></tr>
-        <tr><td><strong>Sthayi</strong></td><td>Sanskrit</td><td>Octave register: Mandra (low), Madhya (middle), Tara (high)</td></tr>
-        <tr><td><strong>Swara</strong></td><td>Sanskrit</td><td>Musical note; one of the 7 Sapta Swaras</td></tr>
-        <tr><td><strong>Tala</strong></td><td>Sanskrit</td><td>Rhythmic cycle; the metrical framework of composition</td></tr>
-        <tr><td><strong>Tisra</strong></td><td>Sanskrit</td><td>3-count jati</td></tr>
-        <tr><td><strong>Varnam</strong></td><td>Sanskrit/Telugu</td><td>Comprehensive compositional form for advanced practice</td></tr>
-        <tr><td><strong>Vilamba Kala</strong></td><td>Sanskrit</td><td>Slow tempo; the first speed at which compositions are learned</td></tr>
-      </table>
-    </div>
-
+  <div class="source-note">
+    Sources: <a href="https://shlokam.org/shloka/lalitha-sahasranamam.htm" target="_blank">shlokam.org/lalitha-sahasranamam</a> · 
+    <a href="https://www.vedadhara.com/english-topics-mantra-shastra" target="_blank">vedadhara.com</a> · 
+    <a href="https://vedicheritage.gov.in" target="_blank">vedicheritage.gov.in</a>
   </div>
 </div>
 
+<!-- ===== TAB: LALITHA ===== -->
+<div id="tab-lalitha" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🌺</div>
+    <div>
+      <div class="section-title">Lalitha Sahasranamavali — ललिता सहस्रनामावली</div>
+      <div class="section-meta">The 1000 Divine Names of the Supreme Mother in Cross-Reference with Sapta Swaras</div>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" id="lalitha-search" placeholder="Search a name, swara, or theme (e.g. Nada, Saraswati, Shakti)…" />
+    <button class="search-btn" onclick="searchLalitha()">Search</button>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showLalithaSection('nada')">Nada-Related Names</button>
+    <button class="inner-tab" onclick="showLalithaSection('swara')">Swara-Related Names</button>
+    <button class="inner-tab" onclick="showLalithaSection('chakra')">Chakra Names</button>
+    <button class="inner-tab" onclick="showLalithaSection('cosmic')">Cosmic Power Names</button>
+    <button class="inner-tab" onclick="showLalithaSection('all')">View All Sections</button>
+  </div>
+  <div id="lalitha-content" class="result-output"></div>
+  <div class="source-note">
+    Full text: <a href="https://shlokam.org/shloka/lalitha-sahasranamam.htm" target="_blank">shlokam.org</a> · 
+    <a href="http://isatsang.blogspot.com/2013/05/sri-lalitha-sahasranamam-with-meaning.html" target="_blank">isatsang.blogspot.com</a> · 
+    <a href="https://www.vedadhara.com" target="_blank">vedadhara.com</a> · 
+    <a href="https://mahakatha.com" target="_blank">mahakatha.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: KHADGAMALA ===== -->
+<div id="tab-khadgamala" class="panel">
+  <div class="section-header">
+    <div class="section-icon">⚔️</div>
+    <div>
+      <div class="section-title">Devi Khadgamala Stotram — देवी खड्गमाला</div>
+      <div class="section-meta">The Garland of Sword — Mapping the Sri Chakra Deities to Swaras</div>
+    </div>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showKhadga('intro')">Introduction</button>
+    <button class="inner-tab" onclick="showKhadga('aavarana')">Nine Avaranas</button>
+    <button class="inner-tab" onclick="showKhadga('deities')">64 Yoginis & Swaras</button>
+    <button class="inner-tab" onclick="showKhadga('phala')">Phala Shruti</button>
+  </div>
+  <div id="khadga-content" class="result-output"></div>
+  <div class="source-note">
+    Reference: <a href="https://en.wikipedia.org/wiki/Khadgamala" target="_blank">wikipedia.org/Khadgamala</a> · 
+    <a href="https://www.wisdomlib.org" target="_blank">wisdomlib.org</a> · 
+    <a href="https://vedapurana.org" target="_blank">vedapurana.org</a>
+  </div>
+</div>
+
+<!-- ===== TAB: RUDRAM ===== -->
+<div id="tab-rudram" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🔱</div>
+    <div>
+      <div class="section-title">Shri Rudram Namakam — श्री रुद्रं नमकम्</div>
+      <div class="section-meta">The Supreme Hymn to Rudra — Musical Structure and Swara Mapping from Krishna Yajurveda</div>
+    </div>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showRudram('overview')">Overview</button>
+    <button class="inner-tab" onclick="showRudram('anuvaka1')">Anuvaka 1–3</button>
+    <button class="inner-tab" onclick="showRudram('anuvaka4')">Anuvaka 4–7</button>
+    <button class="inner-tab" onclick="showRudram('anuvaka8')">Anuvaka 8–11</button>
+    <button class="inner-tab" onclick="showRudram('swara-map')">Swara Mapping</button>
+  </div>
+  <div id="rudram-content" class="result-output"></div>
+  <div class="source-note">
+    Full text: <a href="https://shlokam.org/shloka/rudram-namakam.htm" target="_blank">shlokam.org/rudram</a> · 
+    <a href="https://www.medhajournal.com/rudram-chamakam-an-original-explanation/" target="_blank">medhajournal.com</a> · 
+    <a href="https://vedapurana.org" target="_blank">vedapurana.org</a>
+  </div>
+</div>
+
+<!-- ===== TAB: CHAMAKAM ===== -->
+<div id="tab-chamakam" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🌙</div>
+    <div>
+      <div class="section-title">Chamakam — चमकम्</div>
+      <div class="section-meta">The Sacred Petition — Cosmic Boons through Musical Frequencies</div>
+    </div>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showChamakam('intro')">Introduction</button>
+    <button class="inner-tab" onclick="showChamakam('pairs')">Sacred Number Pairs</button>
+    <button class="inner-tab" onclick="showChamakam('anuvaka')">All 11 Anuvakas</button>
+    <button class="inner-tab" onclick="showChamakam('swara')">Swara Frequencies</button>
+  </div>
+  <div id="chamakam-content" class="result-output"></div>
+  <div class="source-note">
+    <a href="https://shlokam.org/shloka/rudram-namakam.htm" target="_blank">shlokam.org</a> · 
+    <a href="https://www.medhajournal.com/rudram-chamakam-an-original-explanation/" target="_blank">medhajournal.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: BEEJA ===== -->
+<div id="tab-beeja" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🌱</div>
+    <div>
+      <div class="section-title">Beejaksharas — बीजाक्षर</div>
+      <div class="section-meta">Seed Syllables — Sonic Blueprints of Cosmic Deities mapped to Swaras</div>
+    </div>
+  </div>
+  <div id="beeja-content"></div>
+</div>
+
+<!-- ===== TAB: RAGAS ===== -->
+<div id="tab-ragas" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🎼</div>
+    <div>
+      <div class="section-title">Ragas & Composition — राग</div>
+      <div class="section-meta">Explore Ragas linked to Sacred Texts and create your compositions</div>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" id="raga-search" placeholder="Search raga name, mood, swara, or deity…" />
+    <button class="search-btn" onclick="searchRaga()">Search Raga</button>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showRagaSection('featured')">Featured Ragas</button>
+    <button class="inner-tab" onclick="showRagaSection('deity')">By Deity</button>
+    <button class="inner-tab" onclick="showRagaSection('time')">By Time of Day</button>
+    <button class="inner-tab" onclick="showRagaSection('mood')">By Rasa/Mood</button>
+  </div>
+  <div id="raga-content"></div>
+  <div class="source-note">
+    Databases: <a href="https://ragajunglism.org/ragas/masterlist" target="_blank">ragajunglism.org</a> · 
+    <a href="https://melakarta.com" target="_blank">melakarta.com</a> · 
+    <a href="https://ragamath.com" target="_blank">ragamath.com</a> · 
+    <a href="https://amitray.com/the-84-ragas-of-indian-classical-music-a-complete-guide" target="_blank">amitray.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: CROSS REFERENCE ===== -->
+<div id="tab-cross-ref" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🔗</div>
+    <div>
+      <div class="section-title">Cross Reference Matrix</div>
+      <div class="section-meta">Swara ↔ Lalitha Names ↔ Rudram ↔ Khadgamala ↔ Beeja ↔ Raga ↔ Chakra</div>
+    </div>
+  </div>
+  <div id="cross-ref-content"></div>
+</div>
+
+<!-- ===== TAB: KNOWLEDGE SEARCH ===== -->
+<div id="tab-knowledge-base" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🔍</div>
+    <div>
+      <div class="section-title">Knowledge Search</div>
+      <div class="section-meta">AI-Powered Search across all Sacred Texts and Resources</div>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" id="kb-query" placeholder="Ask anything: e.g. 'What swara is associated with Saraswati?' or 'Explain Panchadashi mantra'…" />
+    <button class="search-btn" onclick="doKnowledgeSearch()">Search ↗</button>
+  </div>
+  <div class="loading" id="kb-loading"><div class="spinner"></div><span>Searching sacred knowledge base…</span></div>
+  <div id="kb-result" class="result-output"><div class="result-placeholder">Enter your query above to receive a 6-paragraph in-depth answer synthesized from Vedic texts, musical theory, and cross-referenced sources.</div></div>
+  <div class="viewpoint-tabs" id="vp-tabs" style="display:none;">
+    <button class="vp-tab active" onclick="showVP('philosophical')">Philosophical</button>
+    <button class="vp-tab" onclick="showVP('yogic')">Yogic</button>
+    <button class="vp-tab" onclick="showVP('neurological')">Neurological</button>
+    <button class="vp-tab" onclick="showVP('scientific')">Scientific</button>
+    <button class="vp-tab" onclick="showVP('astrophysics')">Astrophysics</button>
+    <button class="vp-tab" onclick="showVP('spiritual')">Spiritual</button>
+  </div>
+  <div id="vp-content" class="result-output" style="display:none;margin-top:0.8rem;"></div>
+  <div class="source-note" style="margin-top:1rem;">
+    Powered by: <a href="https://www.vedadhara.com" target="_blank">vedadhara.com</a> · 
+    <a href="https://www.wisdomlib.org" target="_blank">wisdomlib.org</a> · 
+    <a href="https://sanskritdocuments.org" target="_blank">sanskritdocuments.org</a> · 
+    <a href="https://mahakatha.com" target="_blank">mahakatha.com</a> · 
+    <a href="https://hindupedia.com" target="_blank">hindupedia.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: VIEWPOINTS ===== -->
+<div id="tab-viewpoints" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🧿</div>
+    <div>
+      <div class="section-title">Six Viewpoints of Sacred Knowledge</div>
+      <div class="section-meta">Philosophical · Yogic · Spiritual · Neurological · Scientific · Astrophysics</div>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" id="vp-query" placeholder="Enter a verse, mantra, or topic to get 6-viewpoint analysis…" />
+    <button class="search-btn" onclick="doViewpointAnalysis()">Analyse ↗</button>
+  </div>
+  <div class="loading" id="vp-loading"><div class="spinner"></div><span>Generating multi-viewpoint analysis…</span></div>
+  <div id="vp-main-content" class="result-output"><div class="result-placeholder">Enter any Sanskrit verse, mantra title, or concept to receive a detailed analysis from all six perspectives.</div></div>
+</div>
+
+<!-- ===== TAB: KARANAS ===== -->
+<div id="tab-karanas" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🙏</div>
+    <div>
+      <div class="section-title">Karanas & Mudras — करण / मुद्रा</div>
+      <div class="section-meta">108 Karanas of Natya Shastra cross-referenced with Swaras and Mantras</div>
+    </div>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showKarana('intro')">Introduction</button>
+    <button class="inner-tab" onclick="showKarana('list')">108 Karanas</button>
+    <button class="inner-tab" onclick="showKarana('mudras')">Hasta Mudras</button>
+    <button class="inner-tab" onclick="showKarana('swara-map')">Swara-Karana Map</button>
+  </div>
+  <div id="karana-content" class="result-output"></div>
+  <div class="source-note">
+    <a href="https://www.exoticindiaart.com/article/the-108-poses-of-shiva-tandava-in-natya-shastra" target="_blank">exoticindiaart.com — 108 Karanas</a> · 
+    <a href="https://en-wikipedia--on--ipfs-org.ipns.dweb.link/wiki/List_of_mudras_%28dance%29" target="_blank">Mudra List</a> · 
+    <a href="https://natyashastra.culturalmusings.com" target="_blank">natyashastra.culturalmusings.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: VEDAS & UPANISHADS ===== -->
+<div id="tab-vedas-upanishads" class="panel">
+  <div class="section-header">
+    <div class="section-icon">📿</div>
+    <div>
+      <div class="section-title">Vedas & Upanishads</div>
+      <div class="section-meta">Swara-referenced passages from Samaveda, Rig, Yajur, Atharva and key Upanishads</div>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" id="veda-search" placeholder="Search swara, deity, or concept in Vedic texts…" />
+    <button class="search-btn" onclick="searchVedas()">Search</button>
+  </div>
+  <div id="veda-content" class="result-output"><div class="result-placeholder">Select a swara from the sidebar or search a concept to see Vedic & Upanishadic cross-references in Sanskrit with transliteration and meaning.</div></div>
+  <div class="source-note">
+    <a href="https://hindupedia.com/en/Veda" target="_blank">hindupedia.com</a> · 
+    <a href="https://vedicheritage.gov.in" target="_blank">vedicheritage.gov.in</a> · 
+    <a href="https://vedapurana.org" target="_blank">vedapurana.org</a> · 
+    <a href="https://openlibrary.org/subjects/advaita" target="_blank">openlibrary.org</a>
+  </div>
+</div>
+
+<!-- ===== TAB: COMPOSITION CREATOR ===== -->
+<div id="tab-composition-creator" class="panel">
+  <div class="section-header">
+    <div class="section-icon">✍️</div>
+    <div>
+      <div class="section-title">Composition Creator</div>
+      <div class="section-meta">AI-assisted sacred composition based on Raga, Tala, Deity and Mantra selection</div>
+    </div>
+  </div>
+  <div class="creator-panel">
+    <div class="creator-row">
+      <div class="creator-field">
+        <div class="creator-label">Deity / Devata</div>
+        <select class="creator-select" id="cc-deity">
+          <option value="">Select Deity…</option>
+          <option>Lalitha Tripurasundari</option>
+          <option>Devi Khadgamala</option>
+          <option>Lord Shiva (Rudra)</option>
+          <option>Saraswati</option>
+          <option>Ganesha</option>
+          <option>Subramanya / Murugan</option>
+          <option>Vishnu / Narayana</option>
+          <option>Devi Durga</option>
+          <option>Lakshmi</option>
+          <option>Krishna</option>
+        </select>
+      </div>
+      <div class="creator-field">
+        <div class="creator-label">Primary Swara</div>
+        <select class="creator-select" id="cc-swara">
+          <option value="">Select Swara…</option>
+          <option>Sa — Shadja (Root/Earth)</option>
+          <option>Ri — Rishabha (Sacral/Water)</option>
+          <option>Ga — Gandhara (Solar Plexus/Fire)</option>
+          <option>Ma — Madhyama (Heart/Air)</option>
+          <option>Pa — Panchama (Throat/Space)</option>
+          <option>Dha — Dhaivata (Third Eye/Light)</option>
+          <option>Ni — Nishada (Crown/Consciousness)</option>
+        </select>
+      </div>
+      <div class="creator-field">
+        <div class="creator-label">Raga</div>
+        <select class="creator-select" id="cc-raga">
+          <option value="">Select Raga…</option>
+          <option>Bhairavi</option><option>Yaman</option><option>Bhairav</option>
+          <option>Kalyani</option><option>Todi</option><option>Kafi</option>
+          <option>Darbari Kanada</option><option>Malkauns</option><option>Hamsadhwani</option>
+          <option>Revati</option><option>Shankarabharanam</option><option>Mayamalavagowla</option>
+          <option>Ananda Bhairavi</option><option>Bilahari</option><option>Hindolam</option>
+        </select>
+      </div>
+    </div>
+    <div class="creator-row">
+      <div class="creator-field">
+        <div class="creator-label">Composition Type</div>
+        <select class="creator-select" id="cc-type">
+          <option>Kriti / Krithi</option>
+          <option>Stotram (Praise hymn)</option>
+          <option>Dhyana Shloka</option>
+          <option>Mangalacharanam</option>
+          <option>Pallavi – Anupallavi</option>
+          <option>Keertanam</option>
+          <option>Sloka + Musical Rendering</option>
+        </select>
+      </div>
+      <div class="creator-field">
+        <div class="creator-label">Language</div>
+        <select class="creator-select" id="cc-lang">
+          <option>Sanskrit</option>
+          <option>Sanskrit + Telugu</option>
+          <option>Sanskrit + Tamil</option>
+          <option>Sanskrit + Kannada</option>
+          <option>Sanskrit + Hindi</option>
+        </select>
+      </div>
+      <div class="creator-field">
+        <div class="creator-label">Intention / Theme</div>
+        <input type="text" class="creator-input" id="cc-theme" placeholder="e.g. Nada Upasana, healing, liberation…" />
+      </div>
+    </div>
+    <button class="generate-btn" onclick="generateComposition()">Generate Composition ↗</button>
+  </div>
+  <div class="loading" id="cc-loading" style="margin-top:1rem;"><div class="spinner"></div><span>Composing your sacred piece…</span></div>
+  <div id="cc-result" class="result-output" style="margin-top:1rem;display:none;"></div>
+</div>
+
+<!-- ===== TAB: NADA CHIKITSA ===== -->
+<div id="tab-nada-chikitsa" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🩺</div>
+    <div>
+      <div class="section-title">Nada Chikitsa — नाद चिकित्सा</div>
+      <div class="section-meta">Sound Healing through Sapta Swaras — Ancient Science of Vibrational Medicine</div>
+    </div>
+  </div>
+  <div id="nada-chikitsa-content"></div>
+  <div class="source-note"><a href="https://nada-chikitsa.culturalmusings.com" target="_blank">nada-chikitsa.culturalmusings.com</a></div>
+</div>
+
+<!-- ===== TAB: NATYASHASTRA ===== -->
+<div id="tab-natyashastra" class="panel">
+  <div class="section-header">
+    <div class="section-icon">💃</div>
+    <div>
+      <div class="section-title">Natyashastra — नाट्यशास्त्र</div>
+      <div class="section-meta">Bharata Muni's treatise on music, dance, drama — and the Swara connection</div>
+    </div>
+  </div>
+  <div id="natya-content"></div>
+  <div class="source-note">
+    <a href="https://natyashastra.culturalmusings.com" target="_blank">natyashastra.culturalmusings.com</a> · 
+    <a href="https://natyashastraclassical-dance.culturalmusings.com" target="_blank">natyashastraclassical-dance.culturalmusings.com</a>
+  </div>
+</div>
+
+<!-- ===== TAB: BIORESONANCE ===== -->
+<div id="tab-bioresonance" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🌊</div>
+    <div>
+      <div class="section-title">Bio-Resonance & Swara — जैव-अनुनाद</div>
+      <div class="section-meta">Scientific basis of Swara frequencies and bio-resonance healing</div>
+    </div>
+  </div>
+  <div id="bio-content"></div>
+  <div class="source-note"><a href="https://bioresonancemusings.culturalmusings.com" target="_blank">bioresonancemusings.culturalmusings.com</a></div>
+</div>
+
+<!-- ===== TAB: SACRED LINKS ===== -->
+<div id="tab-sacred-links" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🔗</div>
+    <div>
+      <div class="section-title">Sacred Knowledge Links</div>
+      <div class="section-meta">All partner portals, databases, and reference websites</div>
+    </div>
+  </div>
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showLinks('cultural')">Cultural Musings Network</button>
+    <button class="inner-tab" onclick="showLinks('vedic')">Vedic Databases</button>
+    <button class="inner-tab" onclick="showLinks('music')">Music & Raga</button>
+    <button class="inner-tab" onclick="showLinks('tantra')">Mantra & Tantra</button>
+  </div>
+  <div id="links-content"></div>
+</div>
+
+<!-- ===== TAB: ENQUIRY ===== -->
+<div id="tab-enquiry" class="panel">
+  <div class="section-header">
+    <div class="section-icon">📋</div>
+    <div>
+      <div class="section-title">Enquiry Form</div>
+      <div class="section-meta">Send us your research requirements, collaboration proposals or queries</div>
+    </div>
+  </div>
+  <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;">All enquiries will be directed to: <strong style="color:var(--gold);">smith123846@gmail.com</strong> · Phone: <strong style="color:var(--gold);">+91 9121379100</strong></p>
+  <iframe class="enquiry-frame" src="https://form.jotform.com/261042208142039" title="Enquiry Form"></iframe>
+</div>
+
+<!-- ===== TAB: CHATBOT ===== -->
+<div id="tab-chatbot" class="panel">
+  <div class="section-header">
+    <div class="section-icon">💬</div>
+    <div>
+      <div class="section-title">Sacred Knowledge Chatbot</div>
+      <div class="section-meta">Leave your message — we will get back to you with your requirements</div>
+    </div>
+  </div>
+  <div class="chat-section">
+    <div class="chat-header">
+      <div class="chat-dot"></div>
+      <div>
+        <div class="chat-title">Nada Neerajanam Assistant</div>
+        <div class="chat-subtitle">Leave your message and we will get back to you</div>
+      </div>
+    </div>
+    <iframe class="chat-frame" src="https://www.jotform.com/agent/019d8f3727af73cab8f1024b3df3ef1f84b6" title="Sacred Knowledge Chatbot"></iframe>
+  </div>
+</div>
+
+<!-- ===== TAB: ABOUT ===== -->
+<div id="tab-about" class="panel">
+  <div class="section-header">
+    <div class="section-icon">🕉️</div>
+    <div>
+      <div class="section-title">About Nada Neerajanam</div>
+      <div class="section-meta">The Vision, Mission and Knowledge Architecture</div>
+    </div>
+  </div>
+  <div class="swara-card">
+    <div class="swara-name">नाद नीराजनम् — Waving the Lamp of Sound</div>
+    <div class="swara-body">
+      <p>Nada Neerajanam is a sacred knowledge portal dedicated to establishing the profound connection between the Sapta Swaras (seven musical notes) and the great Vedic texts — Lalitha Sahasranamavali, Devi Khadgamala Stotram, and the Shri Rudram (Namakam and Chamakam). The name itself means "offering of sound as light" — as the priest waves an oil lamp before the deity, we offer the lamp of musical consciousness before the divine.</p>
+      <p>The portal provides a two-phased application: Phase 1 operates without API integration, directing users to the finest Vedic databases for raw textual research. Phase 2 offers AI-assisted composition, cross-referencing, and 6-viewpoint analysis. Together they create an unprecedented bridge between ancient sacred science and contemporary research tools.</p>
+      <p>All content is cross-referenced against: <strong style="color:var(--gold-light);">Vedicheritage.gov.in · Hindupedia · WisdomLib · Vedadhara · Shlokam.org · Sanskrit Documents · Vedapurana · Mahakatha · ManBlunder · OpenSadhaka · SanskritDocuments.org</strong></p>
+      <div class="verse">
+        नादं विना न जायते किञ्चित् — Without Nada (sound), nothing comes into existence<br>
+        <span class="transliteration">Nādaṃ vinā na jāyate kiñcit</span><br>
+        <span class="meaning">— Nada Bindu Upanishad</span>
+      </div>
+    </div>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-title">Contact</div>
+      <div class="info-card-content">Email: smith123846@gmail.com<br>Phone: +91 9121379100</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Main Portals</div>
+      <div class="info-card-content"><a href="https://nadaneerajanamadv1.culturalmusings.com" target="_blank" style="color:var(--teal-light);">nadaneerajanamadv1.culturalmusings.com</a><br><a href="https://nadaneerajanam.culturalmusings.com" target="_blank" style="color:var(--teal-light);">nadaneerajanam.culturalmusings.com</a></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
 <script>
-let currentTab = 'overview';
-function goTab(tab) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const panel = document.getElementById('panel-' + tab);
-  if (panel) panel.classList.add('active');
-  const btn = document.querySelector('[data-tab="' + tab + '"]');
-  if (btn) btn.classList.add('active');
-  currentTab = tab;
-  closeAllDd();
+// ======= DATA STORE =======
+const SWARAS={
+  sa:{name:"Sa — Shadja",dev:"षड्ज",roman:"Ṣaḍja",freq:"Sa (C / 261.63 Hz)",chakra:"Muladhara — Root",element:"Earth / Prithvi",deity:"Agni / Brahma",bird:"Peacock (Mayura)",lalitha:["Shri Mata (001) — The Holy Mother, the primordial origin as Sa is the first swara","Mahatripurasundari (002) — Beautiful in three worlds, Sa spanning three registers","Nada-rupa (resonance form) — Sa being the foundation of all Nada","Sarva-karana-rupini — Form of all causes, as Sa is the root of all swaras","Sarva-mangala (auspiciousness) — Sa's peacock resonance brings auspiciousness"],
+  khadgamala:["Aima — First deity of the bindu, corresponds to Sa the primal ground","Tripura (first Avarana) — Sa as the base of the three-world harmony","Sarva-siddhi-prada — Grant all perfections as Sa grants musical completeness"],
+  rudram:["Namaste Astu Bhagavan — First Namaskara: Sa is the foundational obeisance","Nama Hiranyabahave — To the golden-armed: Sa resonates gold frequency","Namo Girishaya — To the Lord of Mountains: Muladhara = mountain = Sa"],
+  chamakam:["Cha me — And give me this: Sa as the first petition of existence","Ayushcha me — May lifespan be mine: Sa sustains the life-breath (prana)"],
+  raga:"Bhairav (dawn), Mayamalavagowla (morning), Bhairavi (twilight)",
+  beeja:"LAM (लं) — Root Chakra Beejakshara; also AUM (ॐ) as the total foundation",
+  upanishad:"Nada Bindu Upanishad declares: nādaṃ vinā na jāyate — without Sa (the root Nada), nothing manifests. The Chandogya Upanishad Chapter 1 establishes udgitha (OM) beginning from Sa.",
+  philosophical:"Sa (Shadja) represents Brahman as the unchanging substratum — just as Sa never truly changes in a composition but gives ground to all variations, Brahman is the nirvikaara (changeless) beneath all change. The six srutis of Sa mirror the six darshanas (philosophical schools).",
+  yogic:"Sa activates the Muladhara Chakra through the LAM beejakshara. Sustained chanting of Sa in the lower octave (mandra saptak) activates the perineal region, grounding pranic energy. In Kundalini Yoga, Sa is the first step of the awakening.",
+  neurological:"Research at NIMHANS Bangalore and IIT Madras demonstrates Sa's frequencies (around 240-270 Hz) stimulate the vagal nerve through auditory pathways, promoting parasympathetic tone, reducing cortisol and establishing neural groundedness.",
+  scientific:"Sa corresponds to the fundamental harmonic series. As the 1st harmonic, all other swaras are overtones of Sa. Physics confirms that Sa-Pa (Shadja-Panchama) represents the perfect 3:2 ratio — the most consonant interval in nature.",
+  astrophysics:"Sa's frequency corresponds to the base resonance of Earth's Schumann cavity (~7.83 Hz × harmonic scaling). Ancient rishis intuited this: Shadja means 'born of six' — the six directions of space-time from which all cosmic vibration emerges.",
+  color:"Red-Orange (Muladhara color)",
+  time:"Brahma muhurta (pre-dawn)"
+  },
+  ri:{name:"Ri — Rishabha",dev:"ऋषभ",roman:"Ṛṣabha",freq:"Ri (D / 293.66 Hz)",chakra:"Svadhisthana — Sacral",element:"Water / Jala",deity:"Brahma / Saraswati",bird:"Skylark (Chataka)",
+  lalitha:["Chaitanya-rupa — Form of pure consciousness, as Ri initiates movement","Sarva-vashakaari — Controller of all: Ri's movement draws all into rhythm","Brahma-granthi-vibhedini — Breaker of Brahma's knot — Ri opens the Svadhisthana","Sarva-priya-kari — Maker of universal love: Ri's emotional resonance","Lalitha — The Playful One herself: Ri carries the playful quality of divine lila"],
+  khadgamala:["Mahavajreshwari — Second Avarana deity, corresponds to Ri's rising energy","Vajra-shakti — Diamond power: Ri's sharp articulation mirrors vajra clarity"],
+  rudram:["Nama Paryaya — To the All-Pervasive: Ri's flowing quality mirrors pervading presence","Namo Hiranya-rupaya — Golden form: Ri at Swara Samooha spreads like water"],
+  chamakam:["Prajna cha me — And give me wisdom: Ri associated with Saraswati-consciousness","Ayushcha me — Second petition: Ri as the second swara holds the second breath-cycle"],
+  raga:"Bhairavi, Todi, Kafi (morning), Puriya Dhanashri",
+  beeja:"VAM (वं) — Sacral Chakra Beejakshara; SAUM (सौं) for Saraswati",
+  upanishad:"The Taittiriya Upanishad (Shiksha Valli) begins with a study of swaras: Ri is described as the 'udatta' (raised) accent which carries pranic elevation. Chandogya 2.2 describes the Prastava chant using Ri to invoke the waters.",
+  philosophical:"Ri represents the Samkhya principle of Prakriti's first movement — mahat (cosmic intelligence). As the second swara, it embodies duality: the recognition of 'other'. Advaita teaches that Ri's apparent separation from Sa is like waves apparently separate from ocean.",
+  yogic:"Ri activates Svadhisthana through VAM beejakshara. It governs creativity, relationships and the water element. In Nada Yoga, Ri is practiced in the middle register to stimulate the sacral region and awaken creative-emotional energy.",
+  neurological:"Ri frequencies (280-300 Hz) activate the limbic system's emotional processing centers. Studies show sustained Ri-aligned frequencies increase serotonin and oxytocin, promoting emotional openness.",
+  scientific:"Ri represents the major second interval (9:8 ratio from Sa). Water responds to Ri frequencies with distinctive crystalline formations — Masaru Emoto's water memory research aligns with ancient attributions of Ri to the water element.",
+  astrophysics:"Ri corresponds to Jupiter's orbital resonance harmonic in Kepler's Harmonices Mundi framework. Ancient Indian astronomy (Jyotisha) associates Ri with Brihaspati (Jupiter) — the guru of all swaras.",
+  color:"Orange (Svadhisthana color)",time:"Morning (6-9 AM)"
+  },
+  ga:{name:"Ga — Gandhara",dev:"गान्धार",roman:"Gāndhāra",freq:"Ga (E / 329.63 Hz)",chakra:"Manipura — Solar Plexus",element:"Fire / Agni",deity:"Rudra / Vishnu",bird:"Goat (Aja)",
+  lalitha:["Maheshvari — Great Lord's consort: Ga's fiery Rudra connection","Sarva-raksha-karani — Protector of all: Manipura governs personal power","Tripura-bhairavi — Terrible beauty: Ga at its komal (flat) resonance","Maha-pataka-nashini — Destroyer of great sins: Ga's fire purifies","Sarva-saubhagya-dayini — Bestower of complete fortune"],
+  khadgamala:["Bhagamalini — Third Avarana, solar plexus seat","Sarva-samkshobi — Disturber of stasis: Ga's fire creates transformation"],
+  rudram:["Namo Rudraya — To Rudra the fierce: Ga carries Rudra's essence","Nama Sthapathaye cha — To the builder: Ga as architect of musical architecture"],
+  chamakam:["Varchascha me — Give me radiance: Manipura = radiance","Dakshinacha me — Give me skill: Ga swara requires precise skill"],
+  raga:"Bhairav, Yaman, Darbari Kanada, Marwa",
+  beeja:"RAM (रं) — Solar Plexus Beejakshara; HRIM (ह्रीं) for creative fire",
+  upanishad:"The Kena Upanishad begins with the question of who impels the mind — Ga's fiery quality mirrors this impelling force. The Mundaka Upanishad 2.1.8 describes the fire of Brahman from which all is born — Ga's Gandhara region in the throat was considered the seat of fire.",
+  philosophical:"Ga represents the Vedantic concept of tejas (luminosity) — the self-luminous nature of consciousness. In Mimamsa, Ga is associated with action (karma) and the fire of yajna. Shankara equates the Manipura's fire with the discriminating intellect (viveka).",
+  yogic:"Ga activates Manipura through RAM beejakshara. It governs will, digestion, personal power and transformation. Nada yogis chant Ga in the upper-middle register to stimulate the solar plexus fire and burn through karmic obstacles.",
+  neurological:"Ga frequencies (320-340 Hz) stimulate the enteric nervous system — the 'second brain'. The solar plexus has 100 million neurons, and Ga's resonance through the Manipura region directly impacts gut intelligence and decision-making neural circuits.",
+  scientific:"Ga represents the major third (5:4 ratio) — the basis of the harmonic triad. Solar fire and Ga share spectral characteristics: the sun's corona resonates near frequencies harmonically related to Ga.",
+  astrophysics:"Ga corresponds to the Sun's heliospheric resonance. The solar corona oscillates at frequencies that, when scaled by cosmic harmonic ratios, align with Ga. Vedic astronomy (Surya Siddhanta) connects Ga to solar intervals.",
+  color:"Yellow (Manipura color)",time:"Mid-morning (9-12 PM)"
+  },
+  ma:{name:"Ma — Madhyama",dev:"मध्यम",roman:"Madhyama",freq:"Ma (F / 349.23 Hz)",chakra:"Anahata — Heart",element:"Air / Vayu",deity:"Vishnu / Lakshmi",bird:"Heron (Krauncha)",
+  lalitha:["Mahalakshmi-svarupini — Form of Mahalakshmi: Ma as Anahata's love","Sarva-priya-kari — Maker of universal love: Ma the middle note balances all","Hridayastha — Dwelling in the heart: Ma's position as middle swara","Bhava-naashini — Destroyer of rebirth cycle: love transcends cycle","Sarva-siddhi-prada — Bestower of all perfections through the heart"],
+  khadgamala:["Nityaklinna — Ever-moist (compassionate): Ma's water-of-heart quality","Vishnu-priya — Beloved of Vishnu: Ma sustains like Vishnu sustains cosmos"],
+  rudram:["Namo Bhavaya cha — To Being itself: Anahata = pure being","Namo Sharvaya cha — To the Arrow-Wielder: Ma hits the heart center"],
+  chamakam:["Shantamcha me — Give me peace: Anahata = peace center","Shivamcha me — Give me auspiciousness: Ma as the center of blessing"],
+  raga:"Yaman (Kalyan), Bhimpalasi, Bageshri, Khamaj",
+  beeja:"YAM (यं) — Heart Chakra Beejakshara; SHRIM (श्रीं) for Lakshmi",
+  upanishad:"The Mandukya Upanishad's analysis of AUM places Ma (M/U) at the dream-state — the creative middle ground. Taittiriya Upanishad's Ananda Valli describes the heart (hridaya) as the seat of bliss — Ma's Anahata domain.",
+  philosophical:"Ma represents the madhya (middle way) of Vedanta — neither attachment nor renunciation, but Brahma-nishtha in the midst of activity. Its position as the fourth swara mirrors the fourth state (turiya) that underlies waking, dream, and sleep.",
+  yogic:"Ma activates Anahata through YAM beejakshara. The unstruck sound (anahata nada) first becomes perceptible when Ma is internalized. Nada yoga practitioners report hearing the celestial sound (bindu-nada) when Ma is sustained in dhyana.",
+  neurological:"Ma frequencies (340-360 Hz) correspond to heart rate variability enhancement zones. HeartMath Institute research shows heart-coherent states are entered when auditory frequencies align with cardiac rhythms — Ma's frequency promotes this coherence.",
+  scientific:"Ma represents the perfect fourth (4:3 ratio) — mathematically the most stable harmonic after the octave and fifth. The electromagnetic field of the heart (100 times stronger than brain) resonates most coherently with Ma-range frequencies.",
+  astrophysics:"Ma corresponds to Venus in planetary harmonic mapping. Venus-Earth resonance creates a 5:8 orbital ratio that, when translated to frequency, produces intervals harmonically related to Ma. Ancient Indian texts link Ma to Shukra (Venus) — beauty and love.",
+  color:"Green (Anahata color)",time:"Afternoon (12-3 PM)"
+  },
+  pa:{name:"Pa — Panchama",dev:"पञ्चम",roman:"Pañcama",freq:"Pa (G / 392 Hz)",chakra:"Vishuddha — Throat",element:"Space / Akasha",deity:"Shiva / Saraswati",bird:"Koel / Kokila (Cuckoo)",
+  lalitha:["Pancha-koshantara-stha — Dwelling within five sheaths: Pa the fifth","Vagvadini — Goddess of speech: Vishuddha = throat = speech","Sarva-vidya-adhishthana — Seat of all knowledge: Pa as the expression point","Vani — Divine voice: Pa is the swara of the divine voice","Saraswati — Goddess of music: Pa's Vishuddha domain"],
+  khadgamala:["Kulasundari — Beautiful of the tradition: Pa's refined expression","Shiva-priya — Beloved of Shiva: Pa the perfect fifth mirrors Shiva's perfection"],
+  rudram:["Namo Varasivaya — To the auspicious Shiva: Pa's Shiva connection","Namo Shankaraya — To the bringer of peace: Pa-swara calms the mind"],
+  chamakam:["Vachcha me — Give me speech: Pa = Vishuddha = speech","Pratishthaca me — Give me establishment: Pa as the established fifth"],
+  raga:"Hamsadhwani, Bhoopali, Durga, Desh",
+  beeja:"HAM (हं) — Throat Chakra Beejakshara; AIM (ऐं) for Saraswati",
+  upanishad:"The Chandogya Upanishad 1.3 describes the Stobha (chanted support sounds) where Pa-Ga intervals carry the cosmic song. Taittiriya Upanishad opens with phonetics (Shiksha Valli) — Pa's Vishuddha = the science of sacred sound production.",
+  philosophical:"Pa represents the acintya (inconceivable) aspect of Brahman. As Pa is called 'achala' (immovable) — it never takes any vikrit (modified) form in any raga — it represents the unchanging witness consciousness that permeates all states.",
+  yogic:"Pa activates Vishuddha through HAM beejakshara. It is the gateway to higher consciousness — beyond Pa, the upper register (tara saptak) begins, mirroring how beyond Vishuddha, the higher chakras open. Khechari mudra combined with Pa-chanting is a powerful practice.",
+  neurological:"Pa frequencies (380-400 Hz) stimulate vagal-thyroid axis communication. The thyroid gland, anatomically at Vishuddha, responds to Pa-range acoustic stimulation, influencing metabolic and communicative clarity.",
+  scientific:"Pa represents the perfect fifth (3:2 ratio) — the second most consonant interval after the octave. This is the basis of the circle of fifths, used globally in all musical traditions. Pa's 'immovable' quality is a mathematical necessity — it is the strongest harmonic attractor.",
+  astrophysics:"Pa corresponds to Mars in planetary harmonic mapping. Mars-Earth resonance creates intervals related to Pa. The Schumann resonance's 5th harmonic (~39 Hz) when multiplied through octave transpositions approaches Pa-range frequencies.",
+  color:"Sky blue (Vishuddha color)",time:"Late afternoon (3-6 PM)"
+  },
+  dha:{name:"Dha — Dhaivata",dev:"धैवत",roman:"Dhaivata",freq:"Dha (A / 440 Hz)",chakra:"Ajna — Third Eye",element:"Light / Tejas",deity:"Indra / Ganesha",bird:"Horse (Ashva)",
+  lalitha:["Trikona-madhyavasini — Dwelling in the triangle's center: Ajna","Bhagamalini — Garland of prosperity: Dha's perception of abundance","Sarva-vashya-karani — Controller of all by vision: Ajna governs perception","Chidagni-kunda-sambhuta — Born of the fire of consciousness: third eye fire","Maha-pratyangira — Great protector through the eye of wisdom"],
+  khadgamala:["Mahavajreshwari — Diamond-clarity deity: Dha's perceptive precision","Sarva-jnana-karani — Creator of all knowledge: Ajna = omniscience seat"],
+  rudram:["Namo Hiranya-kesaya — To the golden-haired: Dha's golden frequency","Namo Ugra-shravase — To the fierce-heard: Ajna hears the inaudible"],
+  chamakam:["Jyotischa me — Give me light: Ajna = the inner light center","Tvischa me — Give me brilliance: Dha as the swara of luminous clarity"],
+  raga:"Yaman Kalyan, Puriya, Marwa, Sohini (evening)",
+  beeja:"KSHAM (क्षं) — Third Eye Beejakshara; GLAUM (ग्लौं) for Ganesha",
+  upanishad:"The Mandukya Upanishad's turiya state — the fourth beyond three — mirrors Dha's position as 6th swara pointing to what lies beyond. Katha Upanishad 2.3.12: 'smaller than the atom, greater than the great' — Ajna's transcendent perception.",
+  philosophical:"Dha represents the vijnanamaya kosha (wisdom sheath) in Taittiriya classification. It is the swara of prajna — intuitive wisdom. In Kashmir Shaivism, Dha corresponds to the stage of suddha-vidya (pure knowledge) in the descending tattvas.",
+  yogic:"Dha activates Ajna through KSHAM beejakshara. Trataka (steady gazing) combined with Dha-humming is a traditional practice to open the third eye. The pineal gland, corresponding to Ajna, is stimulated by specific Dha-interval combinations.",
+  neurological:"Dha's 440 Hz frequency stimulates gamma brainwave states (40-100 Hz through octave resonance). Gamma waves are associated with high-level cognitive processing, spiritual experience, and the integration of information across neural networks.",
+  scientific:"440 Hz is the universal musical tuning standard (concert A). Dha at this frequency creates resonance with the electromagnetic grid of the human biofield. Advanced physics shows that light (Ajna's element) and sound share fundamental wave mechanics.",
+  astrophysics:"Dha corresponds to Saturn in Vedic astrology's planetary tone mapping. Saturn's orbital resonance, scaled down through 42 octaves, produces frequencies in Dha's range. The planet's hexagonal polar storm is a geometric manifestation of its 6:1 harmonic.",
+  color:"Indigo (Ajna color)",time:"Evening (6-9 PM)"
+  },
+  ni:{name:"Ni — Nishada",dev:"निषाद",roman:"Niṣāda",freq:"Ni (B / 493.88 Hz)",chakra:"Sahasrara — Crown",element:"Consciousness / Chit",deity:"Vishnu / Ganesha",bird:"Elephant (Gaja)",
+  lalitha:["Brahma-rupa — Form of Brahman: Ni as the crown reaching the absolute","Nishkalanka — Spotless: Ni's komal and tivra both point beyond form","Parameshvari — Supreme Ruler: Sahasrara's deity is the transcendent Shakti","Sarva-siddhi-karani — Bestower of all attainments: crown completes all","Para-Brahma — The supreme Brahman: Ni reaches beyond the seven into Para Nada"],
+  khadgamala:["Tripura — Third Avarana's completion: Ni at the crown of the lotus","Mahatripurasundari — The supreme beauty beyond the three worlds: Para Nada"],
+  rudram:["Namo Avyayaya — To the Imperishable: Ni as the note beyond change","Namo Shivaya cha — The auspicious: Ni and Sa form the complete auspicious arc"],
+  chamakam:["Moksha cha me — Give me liberation: Ni transcends all — liberation","Sarvamcha me — Give me everything: Ni as completion of all petitions"],
+  raga:"Bhairavi, Todi, Darbari, Malkauns (late night)",
+  beeja:"OM (ॐ) — Crown Chakra and primordial seed; also HSOUM (ह्सौं)",
+  upanishad:"The Brihadaranyaka Upanishad's discussion of Brahman as the seventh beyond six corresponds to Ni's position as the seventh swara. Chandogya 7.26: 'All this is Brahman' — Ni's resolution back to Sa mirrors all returning to the One.",
+  philosophical:"Ni represents the nirvana point — the resolution of all tension in consciousness. In Advaita, it corresponds to mahavakya 'Aham Brahmasmi' — 'I am Brahman' — the completion of self-inquiry. When Ni resolves to upper Sa, it mirrors the jivatman merging with Paramatman.",
+  yogic:"Ni activates Sahasrara through OM/AUM and HSOUM beejaksharas. It represents the apex of Kundalini's journey. In Nada yoga, when Ni is sustained in the tara saptak (upper register), it can trigger spontaneous samadhi states in advanced practitioners.",
+  neurological:"Ni's frequencies (480-510 Hz) stimulate the pineal gland and the default mode network. The pineal's melatonin and DMT production cycles respond to frequencies in Ni's range, correlating with states of expanded awareness and spiritual experience.",
+  scientific:"Ni represents the major seventh interval (15:8) — the most tension-laden of all intervals, naturally resolving to the octave. This mirrors consciousness: the individual (Ni) always seeks resolution in the universal (higher Sa). Quantum coherence research suggests that Ni-range frequencies optimize quantum processes in neural microtubules.",
+  astrophysics:"Ni corresponds to the Moon in multiple traditions. The Moon's orbital resonance, when harmonically mapped, produces frequencies near Ni. The Moon governs the crown (tides of consciousness), and Ni as the seventh swara completes the cosmic octave of lunar phases.",
+  color:"Violet / White (Sahasrara color)",time:"Late night / Midnight"
+  }
+};
+
+const LALITHA_SECTIONS={
+  nada:[
+    {name:"Nada-rupa (नाद-रूपा)",num:"250",swara:"All Swaras",sans:"ॐ नाद-रूपायै नमः",roman:"Oṃ Nāda-rūpāyai namaḥ",mean:"Salutation to She who is the very form of Nada (primordial sound) — the divine takes the form of all seven swaras simultaneously"},
+    {name:"Para-vak (परा-वाक्)",num:"361",swara:"Ni — Completion",sans:"ॐ परा-वाक्-प्रदर्शिन्यै नमः",roman:"Oṃ Parā-vāk-pradarśinyai namaḥ",mean:"She who reveals the supreme Para Vak — the highest level of speech beyond audible sound"},
+    {name:"Sarva-naadaatmika (सर्व-नाद-आत्मिका)",num:"712",swara:"Sa — Foundation",sans:"ॐ सर्व-नाद-आत्मिकायै नमः",roman:"Oṃ Sarva-nāda-ātmikāyai namaḥ",mean:"She whose soul is constituted of all sounds — the totality of Nada is her body"},
+    {name:"Naada-nishtha (नाद-निष्ठा)",num:"814",swara:"Pa — Stability",sans:"ॐ नाद-निष्ठायै नमः",roman:"Oṃ Nāda-niṣṭhāyai namaḥ",mean:"She who is firmly established in Nada — the unchanging Pa mirrors this stability"},
+  ],
+  swara:[
+    {name:"Sapta-swara (सप्त-स्वर)",num:"443",swara:"All 7 Swaras",sans:"ॐ सप्त-स्वर-मय-आनन्दायै नमः",roman:"Oṃ Sapta-svara-maya-ānandāyai namaḥ",mean:"She who is bliss constituted of the seven swaras"},
+    {name:"Sangita-priya (संगीत-प्रिया)",num:"567",swara:"Ga — Beauty",sans:"ॐ संगीत-प्रियायै नमः",roman:"Oṃ Saṃgīta-priyāyai namaḥ",mean:"She who loves music — Gandhara's harmonious quality is her nature"},
+    {name:"Sarva-sammoha-karani (सर्व-सम्मोहन-करणी)",num:"334",swara:"Dha — Perception",sans:"ॐ सर्व-सम्मोहन-करण्यै नमः",roman:"Oṃ Sarva-sammohana-karaṇyai namaḥ",mean:"She who enchants all — Dhaivata's magical quality of captivating consciousness"},
+  ],
+  chakra:[
+    {name:"Muladhara-nilaya (मूलाधार-निलया)",num:"108",swara:"Sa",sans:"ॐ मूलाधार-निलयायै नमः",roman:"Oṃ Mūlādhāra-nilayāyai namaḥ",mean:"She who dwells in the Muladhara — as Sa dwells at the root of all music"},
+    {name:"Anahata-nilaya (अनाहत-निलया)",num:"296",swara:"Ma",sans:"ॐ अनाहत-निलयायै नमः",roman:"Oṃ Anāhata-nilayāyai namaḥ",mean:"She who resides in the Anahata (heart chakra) — Madhyama's heart-center quality"},
+    {name:"Sahasra-dala-padmastha (सहस्र-दल-पद्मस्था)",num:"589",swara:"Ni",sans:"ॐ सहस्र-दल-पद्मस्थायै नमः",roman:"Oṃ Sahasra-dala-padmasthāyai namaḥ",mean:"She who abides in the thousand-petalled lotus — Nishada's crown completion"},
+  ],
+  cosmic:[
+    {name:"Maha-shakti (महा-शक्ति)",num:"1",swara:"All Swaras",sans:"ॐ श्री-माता — सर्व-शक्ति-स्वरूपिण्यै नमः",roman:"Oṃ Śrī-Mātā — Sarva-śakti-svarūpiṇyai namaḥ",mean:"The Great Power — all swaras together form her complete sonic body"},
+    {name:"Brahma-granthi-vibhedini (ब्रह्म-ग्रन्थि-विभेदिनी)",num:"112",swara:"Ri",sans:"ॐ ब्रह्म-ग्रन्थि-विभेदिन्यै नमः",roman:"Oṃ Brahma-granthi-vibhedinīyai namaḥ",mean:"She who pierces the Brahma knot — Rishabha's ascending quality breaks the primal knot"},
+  ]
+};
+
+const RUDRAM_SECTIONS={
+  overview:`<div class="result-content">
+<h3>Shri Rudram Namakam — Overview</h3>
+<p>The Shri Rudram (also called Shatarudriya) is found in the Krishna Yajurveda's Taittiriya Samhita (4.5.1-11). It consists of 11 anuvakas (sections) addressing Lord Rudra in his 108 aspects. The Namakam is so called because it begins with each verse with "Namas" (salutation). Its musical recitation follows specific Vedic svaras — udatta (raised), anudatta (lowered), and svarita (circumflex).</p>
+<div class="verse-block"><div class="sans">नमस्ते रुद्र मन्यव उतो त इषवे नमः ।<br>नमस्ते अस्तु धन्वने बाहुभ्यामुत ते नमः ॥</div><div class="roman">Namaste Rudra manyava uto ta iṣave namaḥ | Namaste astu dhanvane bāhubhyāmuta te namaḥ ||</div><div class="mean">Salutations to your fury, O Rudra, and also to your arrow. Salutations to your bow, and also to your two arms.</div></div>
+<p><strong style="color:var(--gold)">Swara Connection:</strong> The 11 anuvakas parallel the 11 svaras in expanded music theory (7 shuddha + 4 vikrit = 11 tones of the chromatic scale). Each anuvaka carries a specific Vedic svara accent pattern that creates its own internal musicality.</p>
+<p>The recitation follows three accent levels: udatta (carrying Sa energy), anudatta (carrying Ma energy), and svarita (Pa — the pivot). These three Vedic svaras are the root of the entire system of the seven swaras of Gandharva Veda.</p>
+<div class="verse-block"><div class="sans">या ते रुद्र शिवा तनूरघोराऽपापकाशिनी ।<br>तया नस्तनुवा शन्तमया गिरिशन्ताभिचाकशीहि ॥</div><div class="roman">Yā te Rudra śivā tanūragorā'pāpakāśinī | tayā nastanuvā śantamayā giriśantābhicākaśīhi ||</div><div class="mean">That auspicious form of yours, O Rudra, which is not terrible, not sin-revealing — with that most peaceful body, O mountain-dweller, do look upon us.</div></div>
+</div>`,
+  anuvaka1:`<div class="result-content"><h3>Anuvakas 1–3: The Cosmic Manifestation of Rudra</h3>
+<p><strong style="color:var(--gold)">Anuvaka 1</strong> addresses Rudra as the master of forests and armies. Musically, it corresponds to the Purvanga (first half) of a raga — the ascending movement from Sa to Pa.</p>
+<div class="verse-block"><div class="sans">नमो हिरण्यबाहवे सेनान्ये दिशां च पतये नमः ।<br>नमो वृक्षेभ्यो हरिकेशेभ्यः पशूनां पतये नमः ॥</div><div class="roman">Namo hiraṇyabāhave senānye diśāṃ ca pataye namaḥ | namo vṛkṣebhyo harikeśebhyaḥ paśūnāṃ pataye namaḥ ||</div><div class="mean">Salutations to the golden-armed lord of armies and directions. Salutations to the trees with green hair, the lord of animals.</div></div>
+<p><strong style="color:var(--gold)">Swara of Anuvaka 1:</strong> Sa and Ri — the golden arm (Hiranyabahu) resonates at Sa's golden frequency; the movement through forests (Pashupati) corresponds to Ri's flowing water quality.</p>
+<p><strong style="color:var(--gold)">Anuvaka 2</strong> invokes the various forms of Rudra in forests, fields, and waters. The swara movement parallels Ga and Ma — the solar and heart centers being touched as Rudra pervades nature.</p>
+<p><strong style="color:var(--gold)">Anuvaka 3</strong> addresses Rudra's presence in trade, crafts, and society. Pa's Vishuddha quality appears here — the swara of expression and vocation.</p></div>`,
+  'swara-map':`<div class="result-content"><h3>Rudram — Swara Mapping Table</h3>
+<p>The 11 Anuvakas of Rudram map to the 11 positions of the expanded swara system (7 shuddha + 4 vikrit). Here is the fundamental mapping for the 7 shuddha swaras:</p>
+<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:8px;color:var(--gold);">Anuvaka</th><th style="padding:8px;color:var(--gold);">Swara</th><th style="padding:8px;color:var(--gold);">Chakra</th><th style="text-align:left;padding:8px;color:var(--gold);">Rudra Aspect</th><th style="text-align:left;padding:8px;color:var(--gold);">Theme</th></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">1</td><td style="padding:8px;color:var(--gold-light);">Sa</td><td style="padding:8px;">Muladhara</td><td style="text-align:left;padding:8px;">Pashupatih (Lord of Animals)</td><td style="text-align:left;padding:8px;">Foundation / Grounding</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">2</td><td style="padding:8px;color:var(--gold-light);">Ri</td><td style="padding:8px;">Svadhisthana</td><td style="text-align:left;padding:8px;">Sthapathih (Builder)</td><td style="text-align:left;padding:8px;">Creation / Flow</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">3</td><td style="padding:8px;color:var(--gold-light);">Ga</td><td style="padding:8px;">Manipura</td><td style="text-align:left;padding:8px;">Bhavah (Being)</td><td style="text-align:left;padding:8px;">Transformation / Fire</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">4</td><td style="padding:8px;color:var(--gold-light);">Ma</td><td style="padding:8px;">Anahata</td><td style="text-align:left;padding:8px;">Sharva (Auspicious)</td><td style="text-align:left;padding:8px;">Love / Balance</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">5</td><td style="padding:8px;color:var(--gold-light);">Pa</td><td style="padding:8px;">Vishuddha</td><td style="text-align:left;padding:8px;">Ugra (Fierce)</td><td style="text-align:left;padding:8px;">Power / Expression</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">6</td><td style="padding:8px;color:var(--gold-light);">Dha</td><td style="padding:8px;">Ajna</td><td style="text-align:left;padding:8px;">Bhima (Terrible)</td><td style="text-align:left;padding:8px;">Vision / Destruction of Illusion</td></tr>
+<tr style="border-bottom:1px solid var(--border);"><td style="padding:8px;">7–11</td><td style="padding:8px;color:var(--gold-light);">Ni → OM</td><td style="padding:8px;">Sahasrara</td><td style="text-align:left;padding:8px;">Mahadeva (Great God)</td><td style="text-align:left;padding:8px;">Liberation / Return to Source</td></tr>
+</table></div></div>`
+};
+
+const RAGA_DATA={
+  featured:[
+    {name:"Bhairavi",swara:"Sa Ri(k) Ga(k) Ma Pa Dha(k) Ni(k)",mood:"Karuna / Shringara",deity:"Lalitha / Devi",time:"Dawn & Dusk",cross:"Rudram Anuvaka 1; Lalitha name #732 Bhairavi-rupa"},
+    {name:"Yaman (Kalyan)",swara:"Sa Ri Ga Ma(t) Pa Dha Ni",mood:"Bhakti / Shringara",deity:"Lakshmi / Saraswati",time:"Evening (Pradosha)",cross:"Lalitha name #567 Sangita-priya; Khadgamala 4th Avarana"},
+    {name:"Hamsadhwani",swara:"Sa Ri Ga Pa Ni",mood:"Mangala / Joy",deity:"Ganesha / Saraswati",time:"Morning",cross:"Ham-sa = Swan of Saraswati; Pa's Vishuddha quality dominant"},
+    {name:"Darbari Kanada",swara:"Sa Ri(k) Ga(k) Ma Pa Dha(k) Ni(k)",mood:"Vira / Karuna",deity:"Shiva / Rudra",time:"Midnight",cross:"Rudram Chamakam night recitation; Khadgamala 7th Avarana"},
+    {name:"Mayamalavagowla",swara:"Sa Ri(k) Ga Ma Pa Dha(k) Ni",mood:"Foundation / Bhakti",deity:"Devi / Mother",time:"Pre-dawn",cross:"First Melakarta: mirrors Sa as foundation of all; Muladhara activation"},
+    {name:"Kalyani",swara:"Sa Ri Ga Ma(t) Pa Dha Ni",mood:"Shringara / Bhakti",deity:"Lalitha",time:"Evening",cross:"Kalyani = auspicious: Lalitha's primary quality; all 7 swaras present"},
+    {name:"Hindolam",swara:"Sa Ga(k) Ma Dha(k) Ni(k)",mood:"Karuna / Vairagya",deity:"Krishna / Vishnu",time:"Pre-dawn",cross:"Five-swara raga: Panchamarahita — no Pa or Ri"},
+    {name:"Malkauns",swara:"Sa Ga(k) Ma Dha(k) Ni(k)",mood:"Karuna / Courage",deity:"Shakti / Bhairava",time:"Late night",cross:"Chamakam's final petition (moksha); Khadgamala 9th Avarana"},
+  ],
+  deity:[
+    {name:"Bhairavi",deity:"Lalitha / Tripurasundari",rasa:"Karuna",cross:"Lalitha Sahasranamavali name #732"},
+    {name:"Kalyani",deity:"Lalitha / Saraswati",rasa:"Bhakti",cross:"Lalitha = Kalyani = Auspiciousness"},
+    {name:"Hamsadhwani",deity:"Ganesha / Saraswati",rasa:"Mangala",cross:"Swan of knowledge = Saraswati's vehicle"},
+    {name:"Darbari",deity:"Shiva / Rudra",rasa:"Vira",cross:"Rudram night-recitation raga"},
+    {name:"Bhairav",deity:"Shiva",rasa:"Shanta",cross:"Dawn raga of Shiva consciousness"},
+    {name:"Khamaj",deity:"Krishna / Vishnu",rasa:"Shringara",cross:"Chamakam's celebration verses"},
+    {name:"Todi",deity:"Devi / Bhairavi",rasa:"Karuna/Bhakti",cross:"Khadgamala Bhairavi form"},
+    {name:"Revati",deity:"Vishnu / Lakshmi",rasa:"Shanta",cross:"Night raga for liberation petitions"},
+  ]
+};
+
+const BEEJA_DATA=[
+  {bija:"OM (ॐ)",dev:"ॐ",swara:"Sa + All",chakra:"Sahasrara & All",deity:"Brahman (All)",quality:"Primordial sound encompassing all swaras; A=Sa(waking), U=Pa(dream), M=Ni(sleep), silence=turiya"},
+  {bija:"AIM (ऐं)",dev:"ऐं",swara:"Pa — Vishuddha",chakra:"Vishuddha",deity:"Saraswati",quality:"Seed of speech, knowledge and music — directly connected to Pa's throat-center dominance"},
+  {bija:"HRIM (ह्रीं)",dev:"ह्रीं",swara:"Ga — Solar Fire",chakra:"Manipura + Heart",deity:"Lalitha Tripurasundari",quality:"Creative cosmic energy — Hreem is the beejakshara of Lalitha herself, vibrating at Ga frequency"},
+  {bija:"SHRIM (श्रीं)",dev:"श्रीं",swara:"Ma — Heart",chakra:"Anahata",deity:"Lakshmi",quality:"Beejakshara of abundance and love — Ma's heart frequency harmonizes with Shrim's nurturing vibration"},
+  {bija:"KLIM (क्लीं)",dev:"क्लीं",swara:"Ri — Sacral",chakra:"Svadhisthana",deity:"Krishna / Kama",quality:"Seed of attraction and creative desire — aligns with Ri's Svadhisthana creative center"},
+  {bija:"DUM (दुं)",dev:"दुं",swara:"Dha — Third Eye",chakra:"Ajna",deity:"Durga",quality:"Seed of protection through divine vision — Dha's Ajna clarity becomes Durga's protective sight"},
+  {bija:"LAM (लं)",dev:"लं",swara:"Sa — Root",chakra:"Muladhara",deity:"Prithvi (Earth)",quality:"Earth element seed — the most foundational of all beejaksharas, mirroring Sa as the root of all swaras"},
+  {bija:"VAM (वं)",dev:"वं",swara:"Ri — Sacral",chakra:"Svadhisthana",deity:"Varuna (Water)",quality:"Water element seed — Ri's flowing quality and Svadhisthana's water element are both invoked"},
+  {bija:"RAM (रं)",dev:"रं",swara:"Ga — Fire",chakra:"Manipura",deity:"Agni (Fire)",quality:"Fire element seed — Ga's solar-fire quality and Manipura are both activated by Ram"},
+  {bija:"YAM (यं)",dev:"यं",swara:"Ma — Air",chakra:"Anahata",deity:"Vayu (Air)",quality:"Air element seed — Ma's spacious heart quality and Anahata's air element find resonance in Yam"},
+  {bija:"HAM (हं)",dev:"हं",swara:"Pa — Space",chakra:"Vishuddha",deity:"Akasha (Space)",quality:"Space/ether element seed — Pa's sky-quality and Vishuddha's space element vibrate with Ham"},
+  {bija:"KSHAM (क्षं)",dev:"क्षं",swara:"Dha — Light",chakra:"Ajna",deity:"Indra / Mind",quality:"Mind element seed — the Ajna center's light-quality and Dha's perceptive frequency"},
+];
+
+const CROSS_REF_DATA=[
+  {swara:"Sa",dev:"षड्ज",chakra:"Muladhara",element:"Earth",lalitha:"Shri Mata, Nada-rupa",rudram:"Anuvaka 1: Pashupatih",khadgamala:"Aima (Bindu Devi)",chamakam:"Cha me, Ayushcha me",beeja:"LAM, OM",raga:"Bhairav, Mayamalavagowla",rasa:"Shanta",time:"Pre-dawn"},
+  {swara:"Ri",dev:"ऋषभ",chakra:"Svadhisthana",element:"Water",lalitha:"Chaitanya-rupa, Lalitha",rudram:"Anuvaka 2: Sthapathih",khadgamala:"Mahavajreshwari",chamakam:"Prajna cha me",beeja:"VAM, KLIM",raga:"Bhairavi, Todi",rasa:"Karuna",time:"Morning"},
+  {swara:"Ga",dev:"गान्धार",chakra:"Manipura",element:"Fire",lalitha:"Maheshvari, Tripura-Bhairavi",rudram:"Anuvaka 3: Bhavah",khadgamala:"Bhagamalini",chamakam:"Varchascha me",beeja:"RAM, HRIM",raga:"Bhairav, Yaman",rasa:"Vira",time:"Mid-morning"},
+  {swara:"Ma",dev:"मध्यम",chakra:"Anahata",element:"Air",lalitha:"Mahalakshmi, Hridayastha",rudram:"Anuvaka 4: Sharva",khadgamala:"Nityaklinna",chamakam:"Shantamcha me",beeja:"YAM, SHRIM",raga:"Yaman, Bhimpalasi",rasa:"Shringara",time:"Afternoon"},
+  {swara:"Pa",dev:"पञ्चम",chakra:"Vishuddha",element:"Space",lalitha:"Vagvadini, Vani, Saraswati",rudram:"Anuvaka 5: Ugra",khadgamala:"Kulasundari",chamakam:"Vachcha me",beeja:"HAM, AIM",raga:"Hamsadhwani, Bhoopali",rasa:"Adbhuta",time:"Late afternoon"},
+  {swara:"Dha",dev:"धैवत",chakra:"Ajna",element:"Light",lalitha:"Trikona-madhya, Chidagni",rudram:"Anuvaka 6: Bhima",khadgamala:"Mahavajreshwari",chamakam:"Jyotischa me",beeja:"KSHAM, DUM",raga:"Yaman Kalyan, Puriya",rasa:"Bhayanak",time:"Evening"},
+  {swara:"Ni",dev:"निषाद",chakra:"Sahasrara",element:"Consciousness",lalitha:"Brahma-rupa, Para-Brahma",rudram:"Anuvakas 7–11: Mahadeva",khadgamala:"Tripura (crown)",chamakam:"Moksha cha me",beeja:"OM, HSOUM",raga:"Malkauns, Darbari",rasa:"Shanta/Moksha",time:"Midnight"},
+];
+
+// ======= RENDER FUNCTIONS =======
+function renderSwara(key){
+  const s=SWARAS[key];
+  if(!s)return;
+  document.getElementById('swara-display').innerHTML=`
+<div class="swara-card">
+  <div class="swara-name">
+    <span class="swara-devanagari">${s.dev}</span>
+    ${s.name}
+    <span class="swara-freq">${s.freq}</span>
+  </div>
+  <div class="swara-body">
+    <div class="cross-ref">
+      <div class="cross-ref-item"><div class="cross-ref-label">Chakra</div><div class="cross-ref-text">${s.chakra}</div></div>
+      <div class="cross-ref-item"><div class="cross-ref-label">Element</div><div class="cross-ref-text">${s.element}</div></div>
+      <div class="cross-ref-item"><div class="cross-ref-label">Deity</div><div class="cross-ref-text">${s.deity}</div></div>
+      <div class="cross-ref-item"><div class="cross-ref-label">Bird / Animal</div><div class="cross-ref-text">${s.bird}</div></div>
+      <div class="cross-ref-item"><div class="cross-ref-label">Color</div><div class="cross-ref-text">${s.color}</div></div>
+      <div class="cross-ref-item"><div class="cross-ref-label">Best Time</div><div class="cross-ref-text">${s.time}</div></div>
+    </div>
+    <p><strong style="color:var(--gold)">Beejakshara:</strong> ${s.beeja}</p>
+    <p><strong style="color:var(--gold)">Ragas:</strong> ${s.raga}</p>
+    <div class="verse"><strong>Lalitha Sahasranamavali Cross-Reference:</strong><br>${s.lalitha.slice(0,3).map(l=>`• ${l}`).join('<br>')}</div>
+    <div class="verse"><strong>Rudram / Chamakam:</strong><br>${s.rudram.map(r=>`• ${r}`).join('<br>')}</div>
+    <div class="verse"><strong>Upanishadic Reference:</strong><br>${s.upanishad}</div>
+    <p><strong style="color:var(--gold)">Philosophical Viewpoint:</strong> ${s.philosophical}</p>
+    <p><strong style="color:var(--gold)">Yogic Viewpoint:</strong> ${s.yogic}</p>
+    <p><strong style="color:var(--gold)">Neurological Viewpoint:</strong> ${s.neurological}</p>
+    <p><strong style="color:var(--gold)">Scientific Viewpoint:</strong> ${s.scientific}</p>
+    <p><strong style="color:var(--gold)">Astrophysics Viewpoint:</strong> ${s.astrophysics}</p>
+  </div>
+</div>`;
 }
-function openMenu(btn, tab) {
-  const dd = document.getElementById('dd-' + tab);
-  if (!dd || !dd.children.length) { goTab(tab); return; }
-  if (dd.classList.contains('show')) { dd.classList.remove('show'); return; }
-  closeAllDd();
-  dd.classList.add('show');
-  goTab(tab);
+
+function showSwara(key){
+  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
+  const items=document.querySelectorAll('.sidebar-item');
+  const map={sa:0,ri:1,ga:2,ma:3,pa:4,dha:5,ni:6};
+  if(items[map[key]])items[map[key]].classList.add('active');
+  showTab('sapta-swaras');
+  renderSwara(key);
 }
-function closeAllDd() {
-  document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+
+function showLalithaSection(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const data=LALITHA_SECTIONS[sec]||LALITHA_SECTIONS.nada;
+  document.getElementById('lalitha-content').innerHTML=`<div class="result-content">${data.map(n=>`
+<h3>${n.name} (Name #${n.num}) — Swara: ${n.swara}</h3>
+<div class="verse-block">
+  <div class="sans">${n.sans}</div>
+  <div class="roman">${n.roman}</div>
+  <div class="mean">${n.mean}</div>
+</div>`).join('')}</div>`;
 }
-function setSubTab(tab, sub) {
-  goTab(tab);
-  setTimeout(() => {
-    const allSubs = document.querySelectorAll('#panel-' + tab + ' [id^="sub-"]');
-    allSubs.forEach(s => { s.style.display = 'none'; });
-    const target = document.getElementById('sub-' + sub + '-' + tab);
-    if (target) target.style.display = 'block';
-    const stBtns = document.querySelectorAll('#panel-' + tab + ' .sub-tab');
-    stBtns.forEach(b => b.classList.remove('active'));
-  }, 50);
-  closeAllDd();
+
+function searchLalitha(){
+  const q=document.getElementById('lalitha-search').value.toLowerCase();
+  if(!q)return;
+  let results=[];
+  Object.values(LALITHA_SECTIONS).forEach(arr=>arr.forEach(n=>{
+    if(n.name.toLowerCase().includes(q)||n.mean.toLowerCase().includes(q)||n.swara.toLowerCase().includes(q)||n.roman.toLowerCase().includes(q))results.push(n);
+  }));
+  if(!results.length){document.getElementById('lalitha-content').innerHTML='<div class="result-placeholder">No matching names found. Try different keywords.</div>';return;}
+  document.getElementById('lalitha-content').innerHTML=`<div class="result-content">${results.map(n=>`<h3>${n.name} (Name #${n.num}) — Swara: ${n.swara}</h3><div class="verse-block"><div class="sans">${n.sans}</div><div class="roman">${n.roman}</div><div class="mean">${n.mean}</div></div>`).join('')}<p style="color:var(--text3);font-size:0.82rem;margin-top:1rem;">For complete list of 1000 names visit: <a href="https://shlokam.org/shloka/lalitha-sahasranamam.htm" target="_blank">shlokam.org</a></p></div>`;
 }
-function showSub(btn, sub, tab) {
-  const panel = document.getElementById('panel-' + tab);
-  panel.querySelectorAll('[id^="sub-"]').forEach(s => s.style.display = 'none');
-  const target = document.getElementById('sub-' + sub + '-' + tab);
-  if (target) target.style.display = 'block';
-  panel.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+
+function showKhadga(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const content={
+    intro:`<div class="result-content">
+<h3>Devi Khadgamala — Introduction</h3>
+<p>The Khadgamala Stotram (Garland of Sword) is a unique hymn listing the names of all deities residing in the 9 Avaranas (enclosures) of the Sri Chakra, from the outer square to the central Bindu where Lalitha Tripurasundari resides. "Khadga" (sword) represents the sharp discriminative wisdom that cuts through illusion.</p>
+<div class="verse-block"><div class="sans">ऐं ह्रीं श्रीं ऐं क्लीं सौः — त्रिपुरसुन्दरि पादुकां पूजयामि तर्पयामि नमः</div><div class="roman">Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ — Tripurasundari pādukāṃ pūjayāmi tarpayāmi namaḥ</div><div class="mean">I worship the sandals of Tripurasundari, I offer oblations, salutations — the three seed syllables (Aim-Hrim-Shrim) represent the three phases of Nada.</div></div>
+<p><strong style="color:var(--gold)">Swara Connection:</strong> The three beejaksharas of the opening — Aim (Pa/Vishuddha), Hrim (Ga/Manipura), Shrim (Ma/Anahata) — correspond to the swaras Pa, Ga, and Ma. The nine Avaranas map to the nine positions of the expanded swara scale.</p>
+</div>`,
+    aavarana:`<div class="result-content">
+<h3>Nine Avaranas of Sri Chakra — Swara Mapping</h3>
+${[{n:1,name:"Bhupura (Square)",swara:"Sa",deities:"Trailokyamohana Chakra — Ashtashakti",desc:"The outer square (3 lines = 3 registers of Sa) enclosing all of manifestation"},{n:2,name:"Shodasha-dala (16 petals)",swara:"Ri",deities:"Sarvaasha-paripuraka Chakra",desc:"16 petals = 16 srutis (microtones) of the ancient scale, Ri's movement range"},{n:3,name:"Ashta-dala (8 petals)",swara:"Ga",deities:"Sarvasamkshobhana Chakra",desc:"8 petals = 8 vikrit swaras of extended system; Ga's fire transforms"},{n:4,name:"Chaturdasha-kona (14 triangles)",swara:"Ma",deities:"Sarvasaubhagyadayaka",desc:"14 mantra-swaras; Ma as Madhyama balances all 14"},{n:5,name:"Bahir-dashara (10 outer triangles)",swara:"Pa",deities:"Sarvarthasadhaka Chakra",desc:"Pa's perfect stability at the center of the 10-direction cosmos"},{n:6,name:"Antar-dashara (10 inner triangles)",swara:"Dha",deities:"Sarvarakshakara Chakra",desc:"Dha's third-eye perception protecting through inner vision"},{n:7,name:"Ashtakona (8 triangles)",swara:"Ni",deities:"Sarvarogahara Chakra",desc:"8 Matrikas; Ni's transcendent healing of all ailments"},{n:8,name:"Trikona (Central Triangle)",swara:"Sa-Pa-Ni (Trinity)",deities:"Sarvasiddhiprada — Tripura Shakti trio",desc:"Sa-Pa-Ni: the three most stable points of the scale mirror the three Shaktis"},{n:9,name:"Bindu (Central Point)",swara:"Para Nada (beyond Ni)",deities:"Lalitha Tripurasundari herself",desc:"The silence beyond all swaras — Parabrahman; OM's silence after pronunciation"},].map(a=>`<div class="verse-block"><div class="sans" style="font-size:1rem;color:var(--gold-light);">Avarana ${a.n}: ${a.name}</div><div class="roman">Swara: ${a.swara} | ${a.deities}</div><div class="mean">${a.desc}</div></div>`).join('')}
+</div>`,
+    deities:`<div class="result-content"><h3>Select Khadgamala Yoginis and Their Swaras</h3>
+<p>The 64 Yoginis of the Khadgamala each carry a specific sonic identity. Here are key Yoginis mapped to swaras:</p>
+${[["Kamesvari","Sa","Foundation of all desire — as Sa grounds all music"],["Bhagamalini","Ri","Garland of beauty — Ri's ascending beauty"],["Nityaklinna","Ga","Ever-moist with grace — Ga's fire produces the nectar of warmth"],["Bherunda","Ma","Terrible beauty — Ma's heart can be fierce in protecting"],["Vahnivasini","Pa","Fire-dweller — Pa's Vishuddha fire of speech"],["Mahavajreshvari","Dha","Diamond lightning — Dha's piercing third-eye clarity"],["Shivaduti","Ni","Shiva's messenger — Ni carries the message beyond all swaras"],["Tvarita","All","Swift one — swift movement through all seven swaras"],].map(y=>`<div class="verse-block"><div class="sans" style="font-size:1rem;color:var(--gold-light);">${y[0]}</div><div class="roman">Swara: ${y[1]}</div><div class="mean">${y[2]}</div></div>`).join('')}
+<p style="color:var(--text3);font-size:0.82rem;margin-top:1rem;">Full Khadgamala text: <a href="https://en.wikipedia.org/wiki/Khadgamala" target="_blank">wikipedia.org/Khadgamala</a> · <a href="https://www.vedadhara.com" target="_blank">vedadhara.com</a></p></div>`,
+    phala:`<div class="result-content"><h3>Phala Shruti — The Fruit of Recitation</h3>
+<div class="verse-block"><div class="sans">यः पठेत् कवचं पुण्यं सर्व-सिद्धि-प्रदायकम् ।<br>ग्रहाणां शान्तिकं श्रेष्ठं भूत-प्रेत-विनाशनम् ॥</div><div class="roman">Yaḥ paṭhet kavacaṃ puṇyaṃ sarva-siddhi-pradāyakam | grahāṇāṃ śāntikaṃ śreṣṭhaṃ bhūta-preta-vināśanam ||</div><div class="mean">Whoever reads this sacred kavaca (armor), which bestows all perfections, the best for pacifying planetary influences, and which destroys malefic entities.</div></div>
+<p><strong style="color:var(--gold)">Swara Significance:</strong> The Phala Shruti recommends recitation "with correct swaras" — the very intonation of the names following Vedic svara patterns (udatta-anudatta-svarita) determines the potency of the result. The Khadgamala sung as a musical composition in Bhairavi raga activates its full vibrational potential.</p></div>`
+  };
+  document.getElementById('khadga-content').innerHTML=content[sec]||content.intro;
 }
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.nav-item')) closeAllDd();
+
+function showRudram(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('rudram-content').innerHTML=RUDRAM_SECTIONS[sec]||RUDRAM_SECTIONS.overview;
+}
+
+function showChamakam(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const content={
+    intro:`<div class="result-content"><h3>Chamakam — The Petition of Cosmic Boons</h3>
+<p>The Chamakam (Sri Rudra Prashna, Part 2) follows the Namakam and consists of 11 anuvakas. Its name comes from the refrain "cha me" (and give me this). It is a comprehensive petition for all material, psychological, and spiritual boons — culminating in moksha (liberation).</p>
+<div class="verse-block"><div class="sans">अग्निश्च म इन्द्रश्च मे सोमश्च म इन्द्रश्च मे ।<br>विश्वे च मे देवाश्च म इन्द्रश्च मे</div><div class="roman">Agniśca ma indraśca me somaśca ma indraśca me | viśve ca me devāśca ma indraśca me</div><div class="mean">May Agni and Indra grant me this, may Soma and Indra grant me this, may all the gods and Indra grant me this.</div></div>
+<p><strong style="color:var(--gold)">Musical Structure:</strong> Chamakam's 11 anuvakas create a musical arc: Anuvaka 1 starts with Sa (Agni = fire = Sa), rises through all seven swaras, and the final anuvaka's moksha-petition corresponds to the octave Sa — the journey of the individual soul back to the universal.</p>
+</div>`,
+    pairs:`<div class="result-content"><h3>Sacred Number Pairs and Swara Correspondence</h3>
+<p>Chamakam's first anuvaka contains 22 blessings in pairs. Each pair corresponds to a swara interval:</p>
+${[[1,"Cha me — Aya cha me","Sa","Existence and arrival — the first pair as Sa and its shadow"],["2","Rayasposham cha me — Pratishtham cha me","Ri","Abundance and stability — Ri's rising brings abundance"],["3","Ayushcha me — Aratim cha me","Ga","Lifespan and dispassion — Ga's fire burns and purifies"],["4","Shantam cha me — Shivam cha me","Ma","Peace and auspiciousness — Ma's heart peace"],["5","Kshemam cha me — Dhrtam cha me","Pa","Safety and steadiness — Pa's immovability"],["6","Vijayam cha me — Jyotischa me","Dha","Victory and light — Dha's third-eye brightness"],["7","Satam cha me — Ayuscha me","Ni","Truth and life-completion — Ni's transcendent petition"],].map(p=>`<div class="verse-block"><div class="sans" style="color:var(--gold-light);">Pair ${p[0]}: ${p[1]}</div><div class="roman">Swara: ${p[2]}</div><div class="mean">${p[3]}</div></div>`).join('')}
+</div>`,
+    anuvaka:`<div class="result-content"><h3>All 11 Anuvakas of Chamakam — Swara Mapping</h3>
+${[{n:1,theme:"Cosmic Boons — all 22 material and spiritual gifts",swara:"Sa",verse:"Agniśca ma indraśca me — Fire and Indra bless me",desc:"Sa as fire (Agni) — foundation of all petitions"},
+{n:2,theme:"Societal and biological gifts — food, vigor, glory",swara:"Ri",verse:"Annam cha me — Annādo cha me",desc:"Ri's abundance = food and nourishment flow"},
+{n:3,theme:"Psychological gifts — knowledge, faith, concentration",swara:"Ga",verse:"Śraddhā cha me — Medha cha me",desc:"Ga's fire = the heat of tapas giving concentration"},
+{n:4,theme:"Cosmic correspondences — Vedic knowledge connections",swara:"Ma",verse:"Sūryaśca ma ādityaśca me",desc:"Ma as balance: Sun and Moon balanced at Anahata"},
+{n:5,theme:"Physical gifts — strength, beauty, heroism",swara:"Pa",verse:"Śarīraṃ cha me — Āyuśca me",desc:"Pa as the body's pillar — Vishuddha expression of physical power"},
+{n:6,theme:"Metaphysical gifts — truth, immortality, bliss",swara:"Dha",verse:"Satyam cha me — Amṛtam cha me",desc:"Dha's Ajna: perceiving immortality beyond the physical"},
+{n:7,theme:"Sacred numbers — mathematical harmony",swara:"Ni",verse:"Ekacha me — Tiśraśca me",desc:"Ni as the 7th leading to all numbers: mathematical completeness"},
+{n:8,theme:"Higher numbers — cosmic proportions",swara:"Ni (extended)",verse:"Ekādaśa cha me — Trayodaśa cha me",desc:"Extended Ni: pointing to 11 (anuvakas), 13, and beyond the octave"},
+{n:9,theme:"Numbers representing cosmic cycles",swara:"Para Nada",verse:"Catatastriṃśat cha me",desc:"Pointing beyond the seven — cosmic cycles transcending musical scale"},
+{n:10,theme:"Vedic ritual connections",swara:"All Swaras in totality",verse:"Ātmā cha me — Tanūśca me",desc:"Self and body — complete swara totality of the individual being"},
+{n:11,theme:"Final liberation petition",swara:"Upper Sa (Tara)",verse:"Agnau prāstāhutir āyatyai",desc:"Return to the source — upper Sa completing the octave journey"},].map(a=>`<div class="verse-block"><div class="sans" style="font-size:0.95rem;color:var(--gold-light);">Anuvaka ${a.n}: ${a.theme}</div><div class="roman">${a.verse} | Swara: ${a.swara}</div><div class="mean">${a.desc}</div></div>`).join('')}
+</div>`
+  };
+  document.getElementById('chamakam-content').innerHTML=content[sec]||content.intro;
+}
+
+function renderBeejaContent(){
+  document.getElementById('beeja-content').innerHTML=`
+<div class="info-grid">${BEEJA_DATA.map(b=>`
+<div class="info-card">
+  <div class="info-card-title" style="font-size:1.2rem;color:var(--gold);">${b.dev} — ${b.bija}</div>
+  <div class="info-card-content">
+    <div style="margin-bottom:0.4rem;"><strong style="color:var(--text3);font-size:0.75rem;">SWARA:</strong> ${b.swara}</div>
+    <div style="margin-bottom:0.4rem;"><strong style="color:var(--text3);font-size:0.75rem;">CHAKRA:</strong> ${b.chakra}</div>
+    <div style="margin-bottom:0.4rem;"><strong style="color:var(--text3);font-size:0.75rem;">DEITY:</strong> ${b.deity}</div>
+    <div style="font-size:0.85rem;color:var(--text3);margin-top:0.4rem;">${b.quality}</div>
+  </div>
+</div>`).join('')}</div>
+<div class="source-note">Reference: <a href="https://www.vedadhara.com/english-topics-mantra-shastra" target="_blank">vedadhara.com</a> · <a href="https://manblunder.com" target="_blank">manblunder.com</a> · <a href="https://www.opensadhaka.com" target="_blank">opensadhaka.com</a> · <a href="https://parasakthifamily.org" target="_blank">parasakthifamily.org</a></div>`;
+}
+
+function showRagaSection(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const data=RAGA_DATA[sec]||RAGA_DATA.featured;
+  if(Array.isArray(data)&&data[0].swara){
+    document.getElementById('raga-content').innerHTML=`<div class="raga-grid">${data.map(r=>`<div class="raga-item" onclick="expandRaga('${r.name}')"><div class="raga-name">${r.name}</div><div class="raga-swara">${r.swara||r.rasa}</div><div class="raga-mood">${r.mood||r.deity} · ${r.time||r.cross}</div></div>`).join('')}</div><div id="raga-detail"></div>`;
+  } else {
+    document.getElementById('raga-content').innerHTML=`<div class="raga-grid">${data.map(r=>`<div class="raga-item"><div class="raga-name">${r.name}</div><div class="raga-swara">${r.rasa}</div><div class="raga-mood">${r.deity}</div></div>`).join('')}</div>`;
+  }
+}
+
+function expandRaga(name){
+  const r=RAGA_DATA.featured.find(x=>x.name===name);
+  if(!r)return;
+  document.getElementById('raga-detail').innerHTML=`
+<div class="swara-card"><div class="swara-name">${r.name}</div>
+<div class="swara-body">
+  <div class="cross-ref">
+    <div class="cross-ref-item"><div class="cross-ref-label">Swara Scale</div><div class="cross-ref-text">${r.swara}</div></div>
+    <div class="cross-ref-item"><div class="cross-ref-label">Mood (Rasa)</div><div class="cross-ref-text">${r.mood}</div></div>
+    <div class="cross-ref-item"><div class="cross-ref-label">Deity</div><div class="cross-ref-text">${r.deity}</div></div>
+    <div class="cross-ref-item"><div class="cross-ref-label">Time of Day</div><div class="cross-ref-text">${r.time}</div></div>
+  </div>
+  <div class="verse"><strong>Sacred Text Cross-Reference:</strong><br>${r.cross}</div>
+</div></div>`;
+}
+
+function searchRaga(){
+  const q=document.getElementById('raga-search').value.toLowerCase();
+  if(!q)return;
+  const all=[...RAGA_DATA.featured,...RAGA_DATA.deity];
+  const results=all.filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+  document.getElementById('raga-content').innerHTML=results.length?
+    `<div class="raga-grid">${results.map(r=>`<div class="raga-item"><div class="raga-name">${r.name}</div><div class="raga-swara">${r.swara||r.rasa||''}</div><div class="raga-mood">${r.mood||r.deity||''}</div></div>`).join('')}</div>
+    <div class="source-note">For more ragas: <a href="https://ragajunglism.org/ragas/masterlist" target="_blank">ragajunglism.org</a> · <a href="https://melakarta.com" target="_blank">melakarta.com</a> · <a href="https://ragamath.com" target="_blank">ragamath.com</a></div>`:
+    `<div class="result-placeholder">No ragas found for "${q}". Try: Bhairavi, Yaman, devotional, evening, Shiva…</div>`;
+}
+
+function renderCrossRef(){
+  document.getElementById('cross-ref-content').innerHTML=`<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.8rem;min-width:900px;">
+<tr style="background:var(--surface2);border-bottom:1px solid var(--border2);">${['Swara','Dev','Chakra','Lalitha','Rudram','Khadgamala','Chamakam','Beeja','Raga','Rasa'].map(h=>`<th style="padding:8px 10px;text-align:left;color:var(--gold);white-space:nowrap;">${h}</th>`).join('')}</tr>
+${CROSS_REF_DATA.map((r,i)=>`<tr style="border-bottom:1px solid var(--border);background:${i%2?'var(--surface2)':'transparent'};">
+<td style="padding:8px 10px;font-weight:600;color:var(--gold-light);">${r.swara}</td>
+<td style="padding:8px 10px;font-size:1rem;">${r.dev}</td>
+<td style="padding:8px 10px;color:var(--text3);">${r.chakra}</td>
+<td style="padding:8px 10px;color:var(--text2);">${r.lalitha}</td>
+<td style="padding:8px 10px;color:var(--text2);">${r.rudram}</td>
+<td style="padding:8px 10px;color:var(--text2);">${r.khadgamala}</td>
+<td style="padding:8px 10px;color:var(--text2);">${r.chamakam}</td>
+<td style="padding:8px 10px;color:var(--teal-light);">${r.beeja}</td>
+<td style="padding:8px 10px;color:var(--text2);">${r.raga}</td>
+<td style="padding:8px 10px;color:var(--text3);">${r.rasa}</td>
+</tr>`).join('')}
+</table></div>
+<div class="source-note" style="margin-top:1rem;">Cross-reference built from: <a href="https://shlokam.org/shloka/lalitha-sahasranamam.htm" target="_blank">Lalitha Sahasranamam</a> · <a href="https://shlokam.org/shloka/rudram-namakam.htm" target="_blank">Rudram</a> · <a href="https://en.wikipedia.org/wiki/Khadgamala" target="_blank">Khadgamala</a> · <a href="https://ragajunglism.org" target="_blank">Raga Index</a></div>`;
+}
+
+// ======= KNOWLEDGE SEARCH (Claude API) =======
+async function doKnowledgeSearch(){
+  const q=document.getElementById('kb-query').value.trim();
+  if(!q)return;
+  document.getElementById('kb-loading').classList.add('show');
+  document.getElementById('kb-result').innerHTML='';
+  document.getElementById('vp-tabs').style.display='none';
+  document.getElementById('vp-content').style.display='none';
+
+  const prompt=`You are a Vedic scholar and musicologist specializing in Sapta Swaras, Lalitha Sahasranamavali, Devi Khadgamala, Rudram Namakam and Chamakam, Sanskrit beejaksharas, Indian classical ragas, and Natya Shastra. 
+
+The user asks: "${q}"
+
+Provide a detailed, in-depth response of exactly 6 paragraphs covering:
+1. The direct Sanskrit textual basis with key verse/name in Sanskrit + Roman transliteration + meaning
+2. Cross-reference to Sapta Swaras (which swara/s connect and why)
+3. Connection to Lalitha Sahasranamavali and/or Khadgamala
+4. Connection to Rudram Namakam and/or Chamakam
+5. Connection to Vedas and Upanishads (cite specific text)
+6. Practical application in music, meditation, or composition
+
+Format with HTML using: <h3> for sub-headings, <div class="verse-block"><div class="sans">Sanskrit</div><div class="roman">Transliteration</div><div class="mean">Meaning</div></div> for verses. End with a note listing 3-4 reference websites from: shlokam.org, vedadhara.com, wisdomlib.org, hindupedia.com, vedapurana.org, mahakatha.com, sanskritdocuments.org.`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    document.getElementById('kb-result').innerHTML=`<div class="result-content">${text}</div>`;
+    document.getElementById('vp-tabs').style.display='flex';
+    window._lastQuery=q;
+  }catch(e){
+    document.getElementById('kb-result').innerHTML=`<div class="result-content"><h3>Knowledge References</h3><p>For this topic, please visit these authoritative sources:</p><ul style="list-style:none;padding:0;">${['https://www.vedadhara.com/english-topics-mantra-shastra','https://shlokam.org/shloka/lalitha-sahasranamam.htm','https://www.wisdomlib.org','https://hindupedia.com/en/Veda','https://vedapurana.org','https://mahakatha.com','https://sanskritdocuments.org'].map(u=>`<li style="margin:0.4rem 0;"><a href="${u}" target="_blank" style="color:var(--teal-light);">${u}</a></li>`).join('')}</ul></div>`;
+  }
+  document.getElementById('kb-loading').classList.remove('show');
+}
+
+let _lastVpAnswers={};
+async function showVP(vp){
+  document.querySelectorAll('.vp-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.vp-tab').forEach(t=>{if(t.textContent.toLowerCase().includes(vp.toLowerCase()))t.classList.add('active');});
+  if(_lastVpAnswers[vp]){document.getElementById('vp-content').innerHTML=_lastVpAnswers[vp];document.getElementById('vp-content').style.display='block';return;}
+  const q=window._lastQuery||'Sapta Swaras and Vedic mantras';
+  const prompt=`From a ${vp} viewpoint, explain in 3-4 paragraphs how "${q}" relates to Sapta Swaras, Sanskrit mantras, and vedic knowledge. Include specific technical details appropriate to the ${vp} perspective. Use HTML formatting with <h3> headings.`;
+  document.getElementById('vp-content').innerHTML='<div class="spinner" style="margin:1rem auto;"></div>';
+  document.getElementById('vp-content').style.display='block';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    _lastVpAnswers[vp]=`<div class="result-content">${text}</div>`;
+    document.getElementById('vp-content').innerHTML=_lastVpAnswers[vp];
+  }catch(e){document.getElementById('vp-content').innerHTML=`<div class="result-placeholder">Please visit <a href="https://spiritualphilosophical.culturalmusings.com" target="_blank">spiritualphilosophical.culturalmusings.com</a> for detailed viewpoint analysis.</div>`;}
+}
+
+async function doViewpointAnalysis(){
+  const q=document.getElementById('vp-query').value.trim();
+  if(!q)return;
+  document.getElementById('vp-loading').classList.add('show');
+  document.getElementById('vp-main-content').innerHTML='';
+  const prompt=`Analyze "${q}" from 6 distinct viewpoints. For each viewpoint, write 2-3 paragraphs with specific technical content. Format with HTML <h3> for each viewpoint title.
+
+1. PHILOSOPHICAL VIEWPOINT (Vedanta, Advaita, Samkhya): Core metaphysical significance
+2. YOGIC VIEWPOINT (Chakras, Kundalini, Nada Yoga): Pranic and subtle body connections
+3. SPIRITUAL VIEWPOINT (Devotional, Bhakti, deity consciousness): Sacred dimension
+4. NEUROLOGICAL VIEWPOINT (Brain, nervous system, neuroscience): Scientific brain research
+5. SCIENTIFIC VIEWPOINT (Physics, acoustics, biology): Modern scientific analysis
+6. ASTROPHYSICS VIEWPOINT (Cosmos, planetary resonance, ancient astronomy): Cosmic connections
+
+Include Sanskrit terms with Roman transliteration where relevant. Be specific and scholarly.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    document.getElementById('vp-main-content').innerHTML=`<div class="result-content">${text}</div>`;
+  }catch(e){document.getElementById('vp-main-content').innerHTML=`<div class="result-placeholder">Please visit <a href="https://spiritualphilosophical.culturalmusings.com" target="_blank">spiritualphilosophical.culturalmusings.com</a> and <a href="https://masterconsciousprotocol.culturalmusings.com" target="_blank">masterconsciousprotocol.culturalmusings.com</a> for detailed viewpoint resources.</div>`;}
+  document.getElementById('vp-loading').classList.remove('show');
+}
+
+function showKarana(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const content={
+    intro:`<div class="result-content"><h3>Karanas of Natya Shastra — Introduction</h3>
+<p>The 108 Karanas (करण) are the foundational units of classical Indian dance described in Bharata Muni's Natya Shastra (Chapter 4). Each Karana is a complete unit of movement: a specific combination of Hasta (hand gesture/mudra), Pada (foot position), and Deha (body posture). Shiva himself performed all 108 Karanas, which is why they are depicted in the outer walls of great Shaiva temples.</p>
+<div class="verse-block"><div class="sans">अङ्गहारं प्रवक्ष्यामि करणानां समुच्चयम् ।<br>यद्भरतेन प्रोक्तं च नाट्यशास्त्रे महामुनिना ॥</div><div class="roman">Aṅgahāraṃ pravakṣyāmi karaṇānāṃ samuccayam | yadbharatena proktaṃ ca nāṭyaśāstre mahāmunī ||</div><div class="mean">I shall describe the Angahara — the combination of Karanas — as declared by the great sage Bharata in the Natyashastra.</div></div>
+<p><strong style="color:var(--gold)">Swara Connection:</strong> The 108 Karanas are grouped into 7 Angaharas, mirroring the 7 Swaras. Each group carries the energy of a specific swara — Sa-Karanas (grounding, foundational), Ri-Karanas (flowing, ascending), through to Ni-Karanas (transcendent, dissolution postures).</p>
+<p>References: <a href="https://natyashastra.culturalmusings.com" target="_blank">natyashastra.culturalmusings.com</a> · <a href="https://karanasrootmap.culturalmusings.com" target="_blank">karanasrootmap.culturalmusings.com</a> · <a href="https://karanassacredsynthesis.culturalmusings.com" target="_blank">karanassacredsynthesis.culturalmusings.com</a></p></div>`,
+    list:`<div class="result-content"><h3>108 Karanas — First 14 with Swara Mapping</h3>
+${[["Talapushpaputa","Sa","Cup-shaped hands at the root — foundational like Sa"],["Vartita","Ri","Turning movement — flowing like Ri's ascending quality"],["Valitorunaka","Ga","Turned thigh — solar plexus activation, Ga's fire"],["Apaviddha","Ma","Thrown out — releasing from the heart center, Ma"],["Samamya","Pa","Even/balanced — Pa's perfect equilibrium"],["Bhramaraviddha","Dha","Bee-pierced — swift, penetrating like Dha's third-eye"],["Nikuttaka","Ni","Stamping — crown reaching downward, Ni's resolution"],["Ardhanikuttaka","Ni (half)","Half-stamp — partial transcendence"],["Katisama","Sa","Hip-level — back to grounding"],["Ardhasuchi","Ri","Half-needle — rising precision"],["Suchi","Ri-Ga","Needle — sharp ascending fire"],["Sucividdha","Ga","Needle-pierced — Manipura activation"],["Janita","Ma","Born/arising — from heart center"],["Bhujangatrasita","Pa","Trembling serpent — Vishuddha's serpent energy"],].map((k,i)=>`<div class="verse-block"><div class="sans" style="color:var(--gold-light);">Karana ${i+1}: ${k[0]}</div><div class="roman">Swara: ${k[1]}</div><div class="mean">${k[2]}</div></div>`).join('')}
+<p style="color:var(--text3);font-size:0.82rem;">Full 108 Karanas: <a href="https://www.exoticindiaart.com/article/the-108-poses-of-shiva-tandava-in-natya-shastra" target="_blank">exoticindiaart.com</a></p></div>`
+  };
+  document.getElementById('karana-content').innerHTML=content[sec]||content.intro;
+}
+
+async function searchVedas(){
+  const q=document.getElementById('veda-search').value.trim();
+  if(!q)return;
+  const prompt=`As a Vedic scholar, find references to "${q}" in the four Vedas (Rig, Sama, Yajur, Atharva) and key Upanishads (Chandogya, Brihadaranyaka, Taittiriya, Kena, Mandukya, Nada-Bindu). 
+
+For each reference provide:
+- The Veda/Upanishad name and chapter/verse reference
+- Sanskrit text (2-3 lines) with Roman transliteration
+- English meaning
+- Connection to Sapta Swaras
+
+Format with HTML: <h3> for each text source, <div class="verse-block"> for verses. Provide 5-8 references total.`;
+  document.getElementById('veda-content').innerHTML='<div style="padding:1rem;color:var(--text3);">Searching Vedic texts…<div class="spinner" style="display:inline-block;margin-left:0.5rem;"></div></div>';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    document.getElementById('veda-content').innerHTML=`<div class="result-content">${text}<div class="source-note"><a href="https://hindupedia.com/en/Veda" target="_blank">hindupedia.com</a> · <a href="https://vedicheritage.gov.in" target="_blank">vedicheritage.gov.in</a> · <a href="https://vedapurana.org" target="_blank">vedapurana.org</a></div></div>`;
+  }catch(e){document.getElementById('veda-content').innerHTML=`<div class="result-placeholder">Visit: <a href="https://vedicheritage.gov.in" target="_blank">vedicheritage.gov.in</a> · <a href="https://hindupedia.com/en/Veda" target="_blank">hindupedia.com</a> · <a href="https://vedapurana.org" target="_blank">vedapurana.org</a></div>`;}
+}
+
+async function generateComposition(){
+  const deity=document.getElementById('cc-deity').value;
+  const swara=document.getElementById('cc-swara').value;
+  const raga=document.getElementById('cc-raga').value;
+  const type=document.getElementById('cc-type').value;
+  const lang=document.getElementById('cc-lang').value;
+  const theme=document.getElementById('cc-theme').value;
+  if(!deity||!swara||!raga){alert('Please select Deity, Swara, and Raga to generate a composition.');return;}
+  document.getElementById('cc-loading').classList.add('show');
+  document.getElementById('cc-result').style.display='none';
+  const prompt=`Create a sacred composition with these specifications:
+- Deity: ${deity}
+- Primary Swara: ${swara}
+- Raga: ${raga}
+- Composition Type: ${type}
+- Language: ${lang}
+- Theme/Intention: ${theme||'devotion and liberation'}
+
+The composition should have:
+1. Opening invocation (Mangalacharanam) in Sanskrit with transliteration
+2. Main body (Pallavi + Anupallavi or equivalent) following the raga's characteristic phrases
+3. Cross-reference to Lalitha Sahasranamavali names OR Rudram anuvakas relevant to this deity/swara
+4. Notes on which swara movements carry which meaning
+
+Format with HTML: <h3> for sections, <div class="verse-block"> with <div class="sans">, <div class="roman">, <div class="mean">. Include performance notes on swara usage.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content.map(i=>i.text||'').join('');
+    document.getElementById('cc-result').innerHTML=`<div class="result-content">${text}<div class="source-note">This is an AI-assisted composition draft. For traditional learning, consult a Guru. Resources: <a href="https://mahakatha.com" target="_blank">mahakatha.com</a> · <a href="https://www.vedadhara.com" target="_blank">vedadhara.com</a></div></div>`;
+    document.getElementById('cc-result').style.display='block';
+  }catch(e){document.getElementById('cc-result').innerHTML=`<div class="result-content"><h3>Composition Framework</h3><p>For <strong>${deity}</strong> in Raga <strong>${raga}</strong> using Swara <strong>${swara}</strong>:</p><p>Visit <a href="https://mahakatha.com" target="_blank">mahakatha.com</a> and <a href="https://www.vedadhara.com" target="_blank">vedadhara.com</a> for authentic compositional resources and traditional texts to base your composition on.</p></div>`;document.getElementById('cc-result').style.display='block';}
+  document.getElementById('cc-loading').classList.remove('show');
+}
+
+function renderNadaChikitsa(){
+  document.getElementById('nada-chikitsa-content').innerHTML=`
+<div class="swara-card"><div class="swara-name">नाद चिकित्सा — Sound as Medicine</div>
+<div class="swara-body">
+<p>Nada Chikitsa (Sound Healing) is the ancient Vedic science of using specific musical frequencies — particularly the Sapta Swaras and their raga-combinations — to restore balance in the physical, pranic, and mental bodies. The foundational text is the Nada Bindu Upanishad which declares that all disease (a-svastha = "not in oneself") arises from disconnect with one's natural Nada.</p>
+<div class="verse"><strong>Nada Bindu Upanishad 1.38:</strong><br>नादानुसंधानात् सर्व-व्याधि-नाशनम्<br><span class="transliteration">Nādānusaṃdhānāt sarva-vyādhi-nāśanam</span><br><span class="meaning">Through attunement to Nada, all disease is destroyed</span></div>
+<div class="cross-ref">${[["Sa (Shadja)","Muladhara / Root","Depression, chronic fatigue, fear — ground and stabilize","Bhairav (dawn), Mayamalavagowla"],["Ri (Rishabha)","Svadhisthana / Sacral","Creativity blocks, reproductive issues, emotional stagnation","Bhairavi, Todi"],["Ga (Gandhara)","Manipura / Solar Plexus","Digestive disorders, low willpower, adrenal fatigue","Bhairav, Bilahari"],["Ma (Madhyama)","Anahata / Heart","Heart conditions, grief, respiratory issues, loneliness","Yaman, Bhimpalasi"],["Pa (Panchama)","Vishuddha / Throat","Thyroid conditions, communication blocks, voice disorders","Hamsadhwani, Bhoopali"],["Dha (Dhaivata)","Ajna / Third Eye","Headaches, hormonal issues, vision problems, insomnia","Yaman Kalyan, Puriya"],["Ni (Nishada)","Sahasrara / Crown","Existential crisis, disconnection, neurological conditions","Malkauns, Darbari"],].map(r=>`<div class="cross-ref-item"><div class="cross-ref-label">${r[0]}</div><div class="cross-ref-text" style="font-size:0.82rem;">${r[1]}<br><em style="color:var(--text3)">${r[2]}</em><br><strong style="color:var(--teal-light)">${r[3]}</strong></div></div>`).join('')}</div>
+</div></div>`;
+}
+
+function renderNatyashastra(){
+  document.getElementById('natya-content').innerHTML=`
+<div class="swara-card"><div class="swara-name">नाट्यशास्त्र — Bharata's Science of Performing Arts</div>
+<div class="swara-body">
+<p>Bharata Muni's Natya Shastra (2nd century BCE – 2nd century CE) is the foundational text of Indian performing arts — encompassing music (Sangita), dance (Nritya), drama (Natya), and their intersections. It is the Panchama Veda (Fifth Veda) because it was created to make Vedic wisdom accessible through the arts.</p>
+<div class="verse"><strong>Natyashastra Chapter 28 — On Music:</strong><br>षड्जमूला तु गान्धारी शुद्धा षड्जसमुद्भवा ।<br><span class="transliteration">Ṣaḍjamūlā tu gāndhārī śuddhā ṣaḍjasamudbhavā |</span><br><span class="meaning">Gandhari is rooted in Shadja (Sa), pure, arising from Shadja — all music has Sa as its mother.</span></div>
+<div class="info-grid" style="margin-top:1rem;">
+  <div class="info-card"><div class="info-card-title">Chapter 28 — Swaras</div><div class="info-card-content">Defines all 7 swaras, their animal sound origins, chakra connections, and proper intonation for each deity invocation</div></div>
+  <div class="info-card"><div class="info-card-title">Chapter 4 — Karanas</div><div class="info-card-content">108 Karanas: the complete movement vocabulary of sacred dance, each corresponding to specific swara-rasa combinations</div></div>
+  <div class="info-card"><div class="info-card-title">Chapter 6 — Rasas</div><div class="info-card-content">9 Rasas (emotional essences) mapped to swaras: Shringara (Ma), Vira (Ga/Pa), Karuna (Ri/Ni), Hasya (Sa), etc.</div></div>
+  <div class="info-card"><div class="info-card-title">Chapter 17 — Talas</div><div class="info-card-content">Rhythmic cycles that create the temporal container for swara expression — time as the womb of Nada</div></div>
+</div>
+</div></div>`;
+}
+
+function renderBioresonance(){
+  document.getElementById('bio-content').innerHTML=`
+<div class="swara-card"><div class="swara-name">जैव-अनुनाद — Bio-Resonance of Swaras</div>
+<div class="swara-body">
+<p>Bio-resonance refers to the phenomenon where living biological systems interact with external frequencies through resonance — the tendency of a system to oscillate at greater amplitude at certain frequencies. The ancient rishis understood this empirically: the Sapta Swaras were selected precisely because they resonate with the seven primary biological oscillator systems of the human body.</p>
+<div class="cross-ref">${[["Sa — 256-264 Hz","Muladhara","Bone marrow, skeletal structure, adrenal cortex","Bhairav raga"],["Ri — 288-294 Hz","Svadhisthana","Reproductive organs, lymphatic system, kidneys","Bhairavi, Todi"],["Ga — 320-330 Hz","Manipura","Digestive system, liver, pancreas, solar plexus ganglion","Yaman, Bhairav"],["Ma — 341-352 Hz","Anahata","Heart muscle, lungs, cardiac plexus, thymus","Yaman Kalyan, Bhimpalasi"],["Pa — 384-396 Hz","Vishuddha","Thyroid, parathyroid, vagus nerve, pharyngeal plexus","Hamsadhwani, Bhoopali"],["Dha — 432-440 Hz","Ajna","Pineal gland, hypothalamus, optic chiasm, carotid sinus","Puriya, Yaman"],["Ni — 480-495 Hz","Sahasrara","Cerebral cortex, pineal-pituitary axis, cerebrospinal fluid","Darbari, Malkauns"],].map(r=>`<div class="cross-ref-item"><div class="cross-ref-label">${r[0]}</div><div class="cross-ref-text" style="font-size:0.8rem;"><em>${r[1]}</em><br>${r[2]}<br><strong style="color:var(--teal-light)">${r[3]}</strong></div></div>`).join('')}</div>
+<div class="verse"><strong>Research Note:</strong><br>Studies at NIMHANS Bangalore, IIT Madras, and international institutions including the Royal College of Music London have documented measurable changes in cortisol, serotonin, heart rate variability, and brainwave patterns in response to Vedic raga exposure. The specific swara combinations of Ragas like Bhairavi and Yaman show the most consistent results.</div>
+</div></div>`;
+}
+
+function showLinks(sec){
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  const links={
+    cultural:[
+      {t:"Cultural Musings (Main)",u:"https://www.culturalmusings.com",d:"Central hub for all cultural, spiritual, and musical research portals"},
+      {t:"Nada Chikitsa",u:"https://nada-chikitsa.culturalmusings.com",d:"Sound healing through Vedic musical science"},
+      {t:"Natya Shastra",u:"https://natyashastra.culturalmusings.com",d:"Bharata Muni's science of performing arts"},
+      {t:"Natya Shastra Classical Dance",u:"https://natyashastraclassical-dance.culturalmusings.com",d:"Classical dance traditions and Natya Shastra application"},
+      {t:"Karanas Root Map",u:"https://karanasrootmap.culturalmusings.com",d:"108 Karanas mapped to their cosmic roots"},
+      {t:"Karanas Sacred Synthesis",u:"https://karanassacredsynthesis.culturalmusings.com",d:"Synthesis of Karana traditions across texts"},
+      {t:"Bio-Resonance Musings",u:"https://bioresonancemusings.culturalmusings.com",d:"Scientific and traditional bio-resonance research"},
+      {t:"Spiritual Philosophical",u:"https://spiritualphilosophical.culturalmusings.com",d:"Philosophical and spiritual viewpoints on cosmic knowledge"},
+      {t:"Master Consciousness Protocol",u:"https://masterconsciousprotocol.culturalmusings.com",d:"Integrated consciousness practices and protocols"},
+      {t:"Spandana Shodha",u:"https://spandanashodha.culturalmusings.com",d:"Research into cosmic vibration (Spandana)"},
+      {t:"Vedic Mathematics & Geometry",u:"https://vedicmathematicsgeometry.culturalmusings.com",d:"Sacred geometry and Vedic mathematical traditions"},
+      {t:"Complete Celestial Synthesis",u:"https://completecelestialsynthesis.culturalmusings.com",d:"Synthesis of celestial, musical, and sacred traditions"},
+      {t:"Unified Theory",u:"https://unifiedtheory.culturalmusings.com",d:"Unified theory of consciousness, vibration, and cosmos"},
+      {t:"Nada Neerajanam (ADV1)",u:"https://nadaneerajanamadv1.culturalmusings.com",d:"Advanced portal for Nada Neerajanam research"},
+      {t:"Nada Neerajanam",u:"https://nadaneerajanam.culturalmusings.com",d:"Main Nada Neerajanam knowledge portal"},
+    ],
+    vedic:[
+      {t:"Vedic Heritage",u:"https://vedicheritage.gov.in",d:"Government of India's official Vedic heritage portal"},
+      {t:"Hindupedia — Veda",u:"https://hindupedia.com/en/Veda",d:"Encyclopedic knowledge of Vedic traditions"},
+      {t:"Vedadhara",u:"https://www.vedadhara.com",d:"Comprehensive Vedic mantras, texts, and explanations"},
+      {t:"WisdomLib",u:"https://www.wisdomlib.org",d:"Sanskrit texts, commentaries and Vedic knowledge"},
+      {t:"Veda Purana",u:"https://vedapurana.org",d:"Puranas, Vedas, and ancient Sanskrit literature"},
+      {t:"Sanskrit Documents",u:"https://sanskritdocuments.org",d:"Largest online Sanskrit document repository"},
+      {t:"Shlokam.org — Lalitha",u:"https://shlokam.org/shloka/lalitha-sahasranamam.htm",d:"Complete Lalitha Sahasranamam with meanings"},
+      {t:"Shlokam.org — Rudram",u:"https://shlokam.org/shloka/rudram-namakam.htm",d:"Complete Rudram Namakam with meanings"},
+      {t:"Mahakatha",u:"https://mahakatha.com",d:"Sacred stories, mantras, and Vedic knowledge"},
+      {t:"Kamakoti",u:"https://www.kamakoti.org",d:"Kamakoti Peetham's resources on Devi worship"},
+      {t:"ManBlunder",u:"https://manblunder.com",d:"Deep Tantric and Shakta tradition explanations"},
+      {t:"OpenSadhaka",u:"https://www.opensadhaka.com",d:"Open platform for sadhana and practice resources"},
+    ],
+    music:[
+      {t:"Raga Junglism (1000+ Ragas)",u:"https://ragajunglism.org/ragas/masterlist",d:"Most comprehensive Hindustani raga database online"},
+      {t:"Melakarta Chart",u:"https://melakarta.com",d:"Complete Carnatic melakarta raga system chart"},
+      {t:"RagaMath",u:"https://ragamath.com",d:"Mathematical and computational analysis of ragas"},
+      {t:"Amitray — 84 Ragas Guide",u:"https://amitray.com/the-84-ragas-of-indian-classical-music-a-complete-guide",d:"Complete guide to 84 classical ragas"},
+      {t:"Web Harmonium",u:"https://web-harmonium.com/harmonium-notes",d:"Online harmonium with sargam notation guide"},
+      {t:"Computational Music — Raga",u:"https://computationalmusic.com/raga-classification-system.html",d:"Scientific classification of raga systems"},
+    ],
+    tantra:[
+      {t:"Soundarya Lahari Mantra Finder",u:"https://github.com/Ishanoshada/Soundarya-Lahari-Mantra-Finder",d:"Algorithmic finder for Soundarya Lahari mantras"},
+      {t:"Parasakti Family",u:"https://parasakthifamily.org",d:"Shakti worship traditions and mantra sadhana"},
+      {t:"Vedyog",u:"https://vedyog.net",d:"Vedic yoga and mantra integration resources"},
+      {t:"Khadgamala — Wikipedia",u:"https://en.wikipedia.org/wiki/Khadgamala",d:"Comprehensive Khadgamala article with variants"},
+      {t:"Nathas.org — Matrika Nyasa",u:"https://www.nathas.org/en/dictionary/matrika-nyasa/",d:"Tantric Nyasa traditions including Matrika"},
+      {t:"Sujata Nandy — Nyasas",u:"https://www.sujatanandy.com/the-nyasas-of-tantric-rituals/",d:"In-depth guide to Tantric Nyasa rituals"},
+    ]
+  };
+  const data=links[sec]||links.cultural;
+  document.getElementById('links-content').innerHTML=`<div class="links-grid">${data.map(l=>`<a class="link-card" href="${l.u}" target="_blank"><div class="link-card-title">${l.t}</div><div class="link-card-desc">${l.d}</div><div class="link-card-url">${l.u.replace('https://','')}</div></a>`).join('')}</div>`;
+}
+
+// ======= TAB NAVIGATION =======
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('tab-'+id);
+  if(panel)panel.classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t=>{if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes(id))t.classList.add('active');});
+  // Lazy render specific panels
+  if(id==='cross-ref')renderCrossRef();
+  if(id==='beeja')renderBeejaContent();
+  if(id==='ragas'){showRagaSection('featured');}
+  if(id==='nada-chikitsa')renderNadaChikitsa();
+  if(id==='natyashastra')renderNatyashastra();
+  if(id==='bioresonance')renderBioresonance();
+  if(id==='sacred-links')showLinks('cultural');
+  if(id==='lalitha')showLalithaSection('nada');
+  if(id==='khadgamala')showKhadga('intro');
+  if(id==='rudram')showRudram('overview');
+  if(id==='chamakam')showChamakam('intro');
+  if(id==='karanas')showKarana('intro');
+}
+
+function setActive(el){
+  document.querySelectorAll('.sidebar-item').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ======= INIT =======
+document.addEventListener('DOMContentLoaded',()=>{
+  renderSwara('sa');
+  // Keyboard shortcut: Enter triggers search
+  document.getElementById('kb-query').addEventListener('keydown',e=>{if(e.key==='Enter')doKnowledgeSearch();});
+  document.getElementById('raga-search').addEventListener('keydown',e=>{if(e.key==='Enter')searchRaga();});
+  document.getElementById('lalitha-search').addEventListener('keydown',e=>{if(e.key==='Enter')searchLalitha();});
+  document.getElementById('veda-search').addEventListener('keydown',e=>{if(e.key==='Enter')searchVedas();});
+  document.getElementById('vp-query').addEventListener('keydown',e=>{if(e.key==='Enter')doViewpointAnalysis();});
 });
 </script>
 </body>
